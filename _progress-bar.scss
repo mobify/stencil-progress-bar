@@ -1,0 +1,30 @@
+// progress-bar
+// ===
+
+// Configurable Variables
+// ---
+
+$progress-bar__variable-name: true !default;
+
+
+// Dependencies
+// ---
+
+@import 'stencil-variables/variables';
+@import 'level/level';
+
+
+// Progress Bar root
+// ---
+
+.c-progress-bar {
+    // Your component styles go here
+}
+
+
+// Progress Bar sub-component
+// ---
+
+.c-progress-bar__sub-component {
+    // Your component styles go here
+}
