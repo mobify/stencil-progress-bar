@@ -1,3 +1,30 @@
 <div {?id}id="{.}"{/id} class="c-progress-bar {class}" {?role}role="{.}"{/role} data-adaptivejs-component="stencil-progress-bar">
-    Component stuff goes here!
+    <div class="c-progress-bar__spinner-section">
+    <svg class="c-progress-bar__spinner" width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <clipPath id="c-progress-clip">
+                <polygon points="25,25 50,25 50,50 25,40" transform="rotate(-90, 22.5, 22.5)"/>
+            </clipPath>
+        </defs>
+
+
+        <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" />
+        <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="green" stroke-width="5" fill="none" clip-path="url(#c-progress-clip)" />
+    </svg>
+        <div class="c-progress-bar__icon c--icon-check"></div>
+    </div>
+
+    <div class="c-progress-bar__bar-section">
+        <div class="c-progress-bar__label">Downloading</div>
+        <div class="c-progress-bar__background">
+            <div class="c-progress-bar__progress"></div>
+        </div>
+    </div>
+
+    <div class="c-progress-bar__extra-section">
+        <div class="c-progress-bar__text">65%</div>
+        {! <div class="c-progress-bar__icon c--icon-check"></div> !}
+    </div>
+    <span class="u-visually-hidden">Progress is 65%</span>
+
 </div>

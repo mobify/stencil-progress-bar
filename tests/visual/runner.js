@@ -2,10 +2,14 @@ require.config({
     paths: {
         'dust-full': '../../node_modules/dustjs-linkedin/dist/dust-full',
         'adaptivejs': '../../node_modules/adaptivejs',
+        'selectorLibrary': '../../bower_components/zeptojs/dist/zepto'
     },
     shim: {
         'dust-full': {
             'exports': 'dust'
+        },
+        'selectorLibrary': {
+            'exports': '$'
         }
     },
 });
@@ -14,12 +18,14 @@ require([
     'dust-full',
     'adaptivejs/lib/dust-component-helper',
     'adaptivejs/lib/dust-component-sugar',
-    '../../tmp/templates'
+    '../../tmp/templates',
+    '../../progress-bar-ui'
 ], function(
     dust,
     componentHelper,
     componentSugar,
-    templates
+    templates,
+    ui
 ) {
     var context;
 
@@ -43,4 +49,6 @@ require([
             console.log(err);
         }
     });
+
+    ui.init();
 });

@@ -18,13 +18,83 @@ $progress-bar__variable-name: true !default;
 // ---
 
 .c-progress-bar {
-    // Your component styles go here
+    height: $tap-size;
+    margin: 0 15px;
+
+    display: flex;
+    align-items: center;
 }
 
 
-// Progress Bar sub-component
+// Process Bar sub-component
 // ---
 
-.c-progress-bar__sub-component {
-    // Your component styles go here
+.c-progress-bar__spinner-section {
+    &:not(:empty) {
+        position: relative;
+
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
+    }
+}
+
+.c-progress-bar__spinner {
+    .c-progress-bar__spinner-background {
+        stroke: $neutral-50;
+    }
+
+    .c-progress-bar__spinner-progress {
+        stroke: $accent-color;
+    }
+}
+
+.c-progress-bar__bar-section {
+    flex-grow: 1;
+    margin-right: 5px;
+}
+
+.c-progress-bar__extra-section {
+    position: relative;
+
+    width: 35px;
+    height: 25px;
+}
+
+.c-progress-bar__background {
+    background: $neutral-50;
+
+    height: 5px;
+}
+
+.c-progress-bar__progress {
+    background: $accent-color;
+
+    height: 5px;
+}
+
+.u-visually-hidden {
+    display: none;
+}
+
+.c-progress-bar__icon {
+    width: 25px;
+    height: 25px;
+
+    &.c--icon-check {
+        background-image: url('/bower_components/shoppicon/svg/check.svg');
+    }
+
+    .c-progress-bar__spinner-section & {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.c-progress-bar__text {
+    position: absolute;
+    right: 0;
+    bottom: -3px;
 }
