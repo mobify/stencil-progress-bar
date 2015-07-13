@@ -59,6 +59,8 @@ require([
 
     ui.init();
 
+    //ui.setState(ui.STATE_SUCCESS, 'Download Successful');
+
     $('.test__button--change-state').on('click', function() {
         ui.setProgress(0.75);
     });

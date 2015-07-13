@@ -73,12 +73,18 @@ $progress-bar__variable-name: true !default;
         background: $neutral-50;
 
         height: 5px;
+
+        overflow: hidden;
     }
 
     .c-progress-bar__progress {
         background: $accent-color;
 
         height: 5px;
+        width: 100%;
+
+        transform: translate3d(-100%, 0, 0);
+        transition: transform 0.5s ease-in;
     }
 }
 

@@ -15,8 +15,8 @@
                 </clipPath>
             </defs>
 
-            <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" />
-            <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="green" stroke-width="5" fill="none" clip-path="url(#c-progress-clip)" />
+            <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="grey" stroke-width="5" fill="none" />
+            <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#c-progress-clip)" />
         </svg>
         <div class="c-progress-bar__indicator">
             <div class="c-progress-bar__text">65%</div>
