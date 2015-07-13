@@ -14,6 +14,20 @@ $progress-bar__variable-name: true !default;
 @import 'level/level';
 
 
+@mixin state-colors($color) {
+    .c-progress-bar__label {
+        color: $color;
+    }
+
+    .c-progress-bar__progress {
+        background-color: $color;
+    }
+
+    .c-progress-bar__spinner-progress {
+        stroke: $color;
+    }
+}
+
 // Progress Bar root
 // ---
 
@@ -37,21 +51,35 @@ $progress-bar__variable-name: true !default;
         height: 45px;
         margin-right: 10px;
     }
-}
 
-.c-progress-bar__spinner {
-    .c-progress-bar__spinner-background {
-        stroke: $neutral-50;
+    .c-progress-bar__spinner {
+        .c-progress-bar__spinner-background {
+            stroke: $neutral-50;
+        }
     }
 
-    .c-progress-bar__spinner-progress {
-        stroke: $accent-color;
+    .c-progress-bar__text {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }
 
 .c-progress-bar__bar-section {
     flex-grow: 1;
     margin-right: 5px;
+
+    .c-progress-bar__background {
+        background: $neutral-50;
+
+        height: 5px;
+    }
+
+    .c-progress-bar__progress {
+        background: $accent-color;
+
+        height: 5px;
+    }
 }
 
 .c-progress-bar__extra-section {
@@ -59,31 +87,17 @@ $progress-bar__variable-name: true !default;
 
     width: 35px;
     height: 25px;
+
+    .c-progress-bar__text {
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+    }
 }
 
-.c-progress-bar__background {
-    background: $neutral-50;
-
-    height: 5px;
-}
-
-.c-progress-bar__progress {
-    background: $accent-color;
-
-    height: 5px;
-}
-
-.u-visually-hidden {
-    display: none;
-}
-
-.c-progress-bar__icon {
+.c-progress-bar__indicator {
     width: 25px;
     height: 25px;
-
-    &.c--icon-check {
-        background-image: url('/bower_components/shoppicon/svg/check.svg');
-    }
 
     .c-progress-bar__spinner-section & {
         position: absolute;
@@ -91,10 +105,74 @@ $progress-bar__variable-name: true !default;
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+    .c--icon-check {
+        width: 25px;
+        height: 25px;
+
+        background-color: $success-color;
+        mask: url('/bower_components/shoppicon/svg/check.svg') no-repeat 50% 50%;
+        -webkit-mask:  url('/bower_components/shoppicon/svg/check.svg') no-repeat 50% 50%;
+    }
+
+    .c--icon-redo {
+        width: 25px;
+        height: 25px;
+
+        background-color: $error-color;
+        mask: url('/bower_components/shoppicon/svg/error.svg') no-repeat 50% 50%;
+        -webkit-mask:  url('/bower_components/shoppicon/svg/error.svg') no-repeat 50% 50%;
+    }
+
+    .c-progress-bar--state-success & {
+        .c--icon-check {
+            display: block;
+        }
+
+        .c-progress-bar__text {
+            display: none;
+        }
+    }
+
+    .c-progress-bar--state-failure & {
+        .c--icon-redo {
+            display: block;
+        }
+
+        .c-progress-bar__text {
+            display: none;
+        }
+    }
 }
 
-.c-progress-bar__text {
-    position: absolute;
-    right: 0;
-    bottom: -3px;
+
+.u-visually-hidden {
+    display: none;
+}
+
+.c-progress-bar--state-inprogress {
+    @include state-colors(black);
+}
+
+.c-progress-bar--state-success {
+    @include state-colors($success-color);
+}
+
+.c-progress-bar--state-failure {
+    @include state-colors($error-color);
+
+}
+
+.c-progress-bar--spinner-enabled {
+    .c-progress-bar__spinner-section {
+        display: block;
+    }
+
+    .c-progress-bar__extra-section {
+        display: none;
+    }
+
+    .c-progress-bar__background {
+        display: none;
+    }
 }

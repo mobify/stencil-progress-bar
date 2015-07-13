@@ -4,8 +4,57 @@
 
 {@c-spec for="Progress Bar Component" repository=repo}
     {@c-spec__test describe=".c-progress-bar"}
-        {@c-spec__case expect="Should have feature A"}
-            {@c-progress-bar /}
+        {@c-spec__case expect="Should have a progress bar, a label, and a value"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="If useSpinner=true, the spinner is shown and the progress bar is hidden"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+        {/c-spec__case}
+    {/c-spec__test}
+
+    {@c-spec__test describe="UI Script"}
+        {@c-spec__case expect="The progress can be updated by calling setProgress"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
+            <button class="test__button--change-state">Change State to 75%</button>
+        {/c-spec__case}
+
+        {@c-spec__case expect="When the progress changes, the bar and value update"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When the progress changes, the spinner and value update"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+        {/c-spec__case}
+    {/c-spec__test}
+
+    {@c-spec__test describe="State"}
+        {@c-spec__case expect="When state=inprogress, the bar and text are black and the value is displayed"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When state=success, the bar and text are green and a check icon is displayed"}
+            {@c-progress-bar state=state_success label=label_success/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When state=failure, the bar and text are red and a redo icon is displayed"}
+            {@c-progress-bar state=state_failure label=label_failure/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When state=inprogress, the spinner and text are black and the value is displayed"}
+            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When state=success, the spinner and text are green and a check icon is displayed"}
+            {@c-progress-bar state=state_success label=label_success useSpinner=useSpinner/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="When state=failure, the spinner and text are red and a redo icon is displayed"}
+            {@c-progress-bar state=state_failure label=label_failure useSpinner=useSpinner/}
+        {/c-spec__case}
+
+        {@c-spec__case expect="The state can be set by calling setState"}
+            {@c-progress-bar label=label/}
         {/c-spec__case}
     {/c-spec__test}
 {/c-spec}

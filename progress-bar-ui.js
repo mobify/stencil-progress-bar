@@ -7,7 +7,7 @@ define([
         q2: [[22.5,22.5], [45,22.5], [45,45], [0,45]],
         q3: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0]],
         q4: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0], [45,0], [22.5,0], [45,0]]
-    }
+    };
 
     var init = function() {
         bindEvents();
@@ -21,7 +21,7 @@ define([
         $('.c-progress-bar__progress').width(percentString);
         $('.c-progress-bar__text').text(percentString);
         calcPoint(percentage);
-    }
+    };
 
     var calcPoint = function(percentage) {
         // get angle from percent
@@ -59,15 +59,16 @@ define([
         }, '');
 
         $('svg polygon').attr('points', pointsString);
-    }
+    };
 
     var bindEvents = function() {
         $('.c-progress-bar').on('progressChanged', function(e, percentage) {
             setProgress(percentage);
         });
-    }
+    };
 
     return {
-        init: init
+        init: init,
+        setProgress: setProgress
     };
 });

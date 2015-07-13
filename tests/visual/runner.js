@@ -39,6 +39,13 @@ require([
     var context = {
         repo: 'https://github.com/mobify/stencil-progress-bar',
         selectMarkup: 'Insert example markup here',
+        useSpinner: true,
+        state_inprogress: 'inprogress',
+        state_success: 'success',
+        state_failure: 'failure',
+        label_inprogress: 'Downloading',
+        label_success: 'Download Successful',
+        label_failure: 'Error Downloading'
     };
 
     // Render
@@ -51,4 +58,8 @@ require([
     });
 
     ui.init();
+
+    $('.test__button--change-state').on('click', function() {
+        ui.setProgress(0.75);
+    });
 });
