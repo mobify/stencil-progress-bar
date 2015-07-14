@@ -10,6 +10,9 @@ define(function(require) {
 
     return schema({
         '?class': String,
-        '?id': String
+        '?id': String,
+        'label': String,
+        'state': ['inprogress', 'success', 'failure'],
+        'useSpinner': Boolean
     });
 });
