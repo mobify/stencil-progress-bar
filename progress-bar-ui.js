@@ -12,6 +12,18 @@ define([
     var init = function(percentage) {
         var progress = percentage || 0;
         setProgress(progress);
+
+        // svg defs are global
+        // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
+        var $progressBars = $('.c-progress-bar');
+        $progressBars.each(function(index, progressBar) {
+            var $bar = $(progressBar);
+            var id = _uuid();
+
+            // for whatever reason, zepto can't select the clippath directly
+            $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
+            $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
+        });
     };
 
     var setProgress = function(percentage, element) {
@@ -92,7 +104,15 @@ define([
         }
 
         return percentage;
-    }
+    };
+
+    var _uuid = (function() {
+        var counter = 0;
+
+        return function() {
+            return counter++;
+        };
+    })();
 
     return {
         init: init,
