@@ -32,10 +32,10 @@ $progress-bar__variable-name: true !default;
 // ---
 
 .c-progress-bar {
+    display: flex;
     height: $tap-size;
     margin: 0 15px;
 
-    display: flex;
     align-items: center;
 }
 
@@ -66,24 +66,25 @@ $progress-bar__variable-name: true !default;
 }
 
 .c-progress-bar__bar-section {
-    flex-grow: 1;
     margin-right: 5px;
 
-    .c-progress-bar__background {
-        background: $neutral-50;
+    flex-grow: 1;
 
+    .c-progress-bar__background {
+        overflow: hidden;
         height: 5px;
 
-        overflow: hidden;
+        background: $neutral-50;
     }
 
     .c-progress-bar__progress {
-        background: $accent-color;
+        transform: translate3d(-100%, 0, 0);
 
         height: 5px;
         width: 100%;
 
-        transform: translate3d(-100%, 0, 0);
+        background: $accent-color;
+
         transition: transform 0.5s ease-in;
     }
 }
@@ -152,10 +153,6 @@ $progress-bar__variable-name: true !default;
 }
 
 
-.u-visually-hidden {
-    display: none;
-}
-
 .c-progress-bar--state-inprogress {
     @include state-colors(black);
 }
@@ -181,4 +178,23 @@ $progress-bar__variable-name: true !default;
     .c-progress-bar__background {
         display: none;
     }
+}
+
+
+// Visually Hidden
+//
+// Remove from flow but leave available to screen readers.
+//
+// Attribution:
+// https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+// https://github.com/suitcss/utils-state/
+
+.u-visually-hidden {
+    position: absolute !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
 }

@@ -39,6 +39,7 @@ define([
         _updateSpinner(percentage, $progressBar);
 
         $progressBar.find('.c-progress-bar__text').text(percentString);
+        $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
     };
 
     var setState = function(state, label, element) {

@@ -19,7 +19,7 @@
             <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" />
         </svg>
         <div class="c-progress-bar__indicator">
-            <div class="c-progress-bar__text">65%</div>
+            <div class="c-progress-bar__text"></div>
             <div class="c-progress-bar__icon c--icon-check" hidden ></div>
             <div class="c-progress-bar__icon c--icon-redo" hidden ></div>
         </div>
@@ -34,11 +34,11 @@
 
     <div class="c-progress-bar__extra-section">
         <div class="c-progress-bar__indicator">
-            <div class="c-progress-bar__text">65%</div>
+            <div class="c-progress-bar__text"></div>
             <div class="c-progress-bar__icon c--icon-check" hidden ></div>
             <div class="c-progress-bar__icon c--icon-redo" hidden ></div>
         </div>
     </div>
-    <span class="u-visually-hidden">Progress is 65%</span>
+    <span class="c-progress-bar__status u-visually-hidden"></span>
 
 </div>
