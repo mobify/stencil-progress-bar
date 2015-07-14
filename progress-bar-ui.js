@@ -9,9 +9,20 @@ define([
         q4: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0], [45,0], [22.5,0], [45,0]]
     };
 
-    var init = function(percentage) {
+    var defaults = {
+        initialValue: 0
+    };
+
+    var ProgressBar = function ProgressBar($el, options) {
+        this.$el = $el;
+        this.options = $.extend(true, {}, defaults, options);
+
+        this.init(this.options.initialValue);
+    };
+
+    ProgressBar.prototype.init = function init(percentage) {
         var progress = percentage || 0;
-        setProgress(progress);
+        this.setProgress(progress);
 
         // svg defs are global
         // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
@@ -28,33 +39,30 @@ define([
         _bindEvents();
     };
 
-    var setProgress = function(percentage, element) {
+    ProgressBar.prototype.setProgress = function setProgress(percentage) {
         percentage = _clampPercentage(percentage);
 
-        var progressBar = element || '.c-progress-bar';
-        var $progressBar = $(progressBar);
+        _updateBar(percentage, this.$el);
+        _updateSpinner(percentage, this.$el);
+        _updateText(percentage, this.$el);
 
-        _updateBar(percentage, $progressBar);
-        _updateSpinner(percentage, $progressBar);
-        _updateText(percentage, $progressBar);
-
-        $progressBar.attr('aria-valuenow', percentage);
+        this.$el.attr('aria-valuenow', percentage);
     };
 
-    var setState = function(state, label, element) {
+    ProgressBar.prototype.setState = function setState(state, label) {
         // Update labels and add the new state class
-        var progressBar = element || '.c-progress-bar';
-        var $progressBar = $(progressBar);
-
-        $progressBar.each(function(index, bar) {
+        this.$el.each(function(index, bar) {
             var $bar = $(bar);
             var newClass = $bar.attr('class').replace(/(c-progress-bar--state-)\w*\s/, '$1' + state + ' ');
             $bar.attr('class', newClass);
             $bar.find('.c-progress-bar__label').text(label);
         });
 
-        $progressBar.attr('aria-valuetext', label);
+        this.$el.attr('aria-valuetext', label);
     };
+
+
+    // Utilities shared by all progress bar instances
 
     var _updateBar = function(percentage, $progressBar) {
         $progress = $progressBar.find('.c-progress-bar__progress');
@@ -140,9 +148,17 @@ define([
     };
 
     return {
-        init: init,
-        setProgress: setProgress,
-        setState: setState,
+        init: function($el, options) {
+            // If not already initialized, create it and expose it through the data method.
+            // Also, expose a separate instance for each progress bar
+            $el.each(function(index, progressBar) {
+                var $bar = $(progressBar);
+
+                if (!$bar.data('progressbar')) {
+                    $bar.data('progressbar', new ProgressBar($bar, options));
+                }
+            });
+        },
         'STATE_INPROGRESS': 'inprogress',
         'STATE_SUCCESS': 'success',
         'STATE_FAILURE': 'failure'

@@ -65,7 +65,7 @@ require([
                 counter = 1;
             }
 
-            ui.setProgress(counter, element);
+            element.data('progressbar').setProgress(counter);
             counter += 0.05;
         }, 500);
     };
@@ -83,7 +83,10 @@ require([
                 progressPercentage = $this.prev().val() / 100;
             }
 
-            ui.setProgress(progressPercentage, $progressBar);
+
+            $progressBar.each(function(index, bar) {
+                $(bar).data('progressbar').setProgress(progressPercentage);
+            });
         });
 
         $('.test__button--start-progress').on('click', function() {
@@ -113,7 +116,9 @@ require([
                 label = 'Error Downloading';
             }
 
-            ui.setState(value, label, $progressBar);
+            $progressBar.each(function(index, bar) {
+                $(bar).data('progressbar').setState(value, label);
+            });
         });
 
         $('.c-progress-bar').on('progress-retry', function() {
@@ -122,5 +127,7 @@ require([
     };
 
     bindEvents();
-    ui.init(0.65);
+    ui.init($('.c-progress-bar'), {
+        initialValue: 0.65
+    });
 });
