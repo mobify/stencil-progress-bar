@@ -31,17 +31,12 @@ define([
     var setProgress = function(percentage, element) {
         percentage = _clampPercentage(percentage);
 
-        var percentString = parseInt(percentage * 100, 10) + '%'
-        var inversePercent = -100 + (percentage * 100);
-
         var progressBar = element || '.c-progress-bar';
         var $progressBar = $(progressBar);
 
-        $progressBar.find('.c-progress-bar__progress').css("transform", "translate3d(" + inversePercent + "%, 0, 0)");
+        _updateBar(percentage, $progressBar);
         _updateSpinner(percentage, $progressBar);
-
-        $progressBar.find('.c-progress-bar__text').text(percentString);
-        $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
+        _updateText(percentage, $progressBar);
 
         $progressBar.attr('aria-valuenow', percentage);
     };
@@ -61,10 +56,27 @@ define([
         $progressBar.attr('aria-valuetext', label);
     };
 
+    var _updateBar = function(percentage, $progressBar) {
+        $progress = $progressBar.find('.c-progress-bar__progress');
+
+        var inversePercent = -100 + (percentage * 100);
+        var transformText = "translate3d(" + inversePercent + "%, 0, 0)";
+
+        $progress.css("-webkit-transform", transformText);
+        $progress.css("transform", transformText);
+    };
+
     var _updateSpinner = function(percentage, $progressBar) {
         var points = _findSpinnerPolygonPoints(percentage);
         _drawSpinnerPolygon(points, $progressBar);
-    }
+    };
+
+    var _updateText = function(percentage, $progressBar) {
+        var percentString = parseInt(percentage * 100, 10) + '%';
+
+        $progressBar.find('.c-progress-bar__text').text(percentString);
+        $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
+    };
 
     var _findSpinnerPolygonPoints = function(percentage) {
         // get angle from percent
