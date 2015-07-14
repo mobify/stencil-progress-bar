@@ -11,23 +11,9 @@
     aria-valuetext="{label}"
     data-adaptivejs-component="stencil-progress-bar">
     
-    <div class="c-progress-bar__spinner-section" hidden>
-        <svg class="c-progress-bar__spinner" width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <defs>
-                <clippath>
-                    <polygon points="22.5,22.5" transform="rotate(-90, 22.5, 22.5)"/>
-                </clippath>
-            </defs>
-
-            <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="grey" stroke-width="5" fill="none" />
-            <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" />
-        </svg>
-        <div class="c-progress-bar__indicator">
-            <div class="c-progress-bar__text"></div>
-            <i class="c-progress-bar__icon fa fa-check c-icon--check"></i>
-            <button class="c-progress-bar__icon fa fa-repeat c-icon--retry"></button>
-        </div>
-    </div>
+    {?useSpinner}
+        {@c-progress-bar__spinner /}
+    {/useSpinner}
 
     <div class="c-progress-bar__bar-section">
         <div class="c-progress-bar__label">{label}</div>
@@ -37,11 +23,7 @@
     </div>
 
     <div class="c-progress-bar__extra-section">
-        <div class="c-progress-bar__indicator">
-            <div class="c-progress-bar__text"></div>
-            <i class="c-progress-bar__icon fa fa-check c-icon--check"></i>
-            <button class="c-progress-bar__icon fa fa-repeat c-icon--retry"></button>
-        </div>
+        {@c-progress-bar__indicator /}
     </div>
     <span class="c-progress-bar__status u-visually-hidden"></span>
 

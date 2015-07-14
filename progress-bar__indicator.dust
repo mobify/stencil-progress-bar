@@ -1,0 +1,5 @@
+<div class="c-progress-bar__indicator">
+    <div class="c-progress-bar__text"></div>
+    <i class="c-progress-bar__icon fa fa-check c-icon--check"></i>
+    <button class="c-progress-bar__icon fa fa-repeat c-icon--retry"></button>
+</div>

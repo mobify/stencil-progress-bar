@@ -1,0 +1,13 @@
+<div class="c-progress-bar__spinner-section">
+    <svg class="c-progress-bar__spinner" width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <clippath>
+                <polygon points="22.5,22.5" transform="rotate(-90, 22.5, 22.5)"/>
+            </clippath>
+        </defs>
+
+        <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="grey" stroke-width="5" fill="none" />
+        <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" />
+    </svg>
+    {@c-progress-bar__indicator /}
+</div>
