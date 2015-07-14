@@ -25,7 +25,7 @@
         <div class="c-progress-bar__indicator">
             <div class="c-progress-bar__text"></div>
             <i class="c-progress-bar__icon fa fa-check c-icon--check"></i>
-            <i class="c-progress-bar__icon fa fa-repeat c-icon--repeat"></i>
+            <button class="c-progress-bar__icon fa fa-repeat c-icon--retry"></button>
         </div>
     </div>
 
@@ -40,7 +40,7 @@
         <div class="c-progress-bar__indicator">
             <div class="c-progress-bar__text"></div>
             <i class="c-progress-bar__icon fa fa-check c-icon--check"></i>
-            <i class="c-progress-bar__icon fa fa-repeat c-icon--repeat"></i>
+            <button class="c-progress-bar__icon fa fa-repeat c-icon--retry"></button>
         </div>
     </div>
     <span class="c-progress-bar__status u-visually-hidden"></span>

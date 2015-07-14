@@ -131,7 +131,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         color: $success-color;
     }
 
-    .c-icon--repeat {
+    .c-icon--retry {
+        padding: 0;
+        border: 0;
+
+        background: 0;
+
         color: $error-color;
     }
 
@@ -146,7 +151,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     }
 
     .c-progress-bar--state-failure & {
-        .c-icon--repeat {
+        .c-icon--retry {
             display: inline-block;
         }
 

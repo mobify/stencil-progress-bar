@@ -76,4 +76,12 @@
             <button class="test__button--change-progress" data-progress-value="-1">Set Progress to -1</button>
         {/c-spec__case}
     {/c-spec__test}
+
+    {@c-spec__test describe="Events"}
+        {@c-spec__case expect="Clicking on the retry button triggers the progress-retry event"}
+            {@c-progress-bar state=state_failure label=label_failure/}
+            {@c-progress-bar state=state_failure label=label_failure useSpinner=useSpinner/}
+            <div class="test__try-message"></div>
+        {/c-spec__case}
+    {/c-spec__test}
 {/c-spec}

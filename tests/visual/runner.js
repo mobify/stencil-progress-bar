@@ -115,6 +115,10 @@ require([
 
             ui.setState(value, label, $progressBar);
         });
+
+        $('.c-progress-bar').on('progress-retry', function() {
+            $('.test__try-message').append('<div>progress-retry triggered!</div>')
+        });
     };
 
     bindEvents();

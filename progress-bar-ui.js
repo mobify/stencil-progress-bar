@@ -24,6 +24,8 @@ define([
             $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
             $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
         });
+
+        _bindEvents();
     };
 
     var setProgress = function(percentage, element) {
@@ -118,6 +120,12 @@ define([
             return counter++;
         };
     })();
+
+    var _bindEvents = function() {
+        $('.c-progress-bar').on('click', '.c-icon--retry', function() {
+            $(this).parents('.c-progress-bar').trigger('progress-retry');
+        });
+    };
 
     return {
         init: init,
