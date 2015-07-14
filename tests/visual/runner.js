@@ -57,11 +57,66 @@ require([
         }
     });
 
-    ui.init();
+    var incrementProgress = function(element) {
+        var counter = 0;
 
-    //ui.setState(ui.STATE_SUCCESS, 'Download Successful');
+        return setInterval(function() {
+            if (counter > 1) {
+                counter = 1;
+            }
 
-    $('.test__button--change-state').on('click', function() {
-        ui.setProgress(0.75);
-    });
+            ui.setProgress(counter, element);
+            counter += 0.05;
+        }, 500);
+    };
+
+    var bindEvents = function() {
+        $('.test__button--change-progress').on('click', function() {
+            var $this = $(this);
+            var $progressBar = $this.parent().find('.c-progress-bar');
+            var progressPercentage = 0;
+
+            if ($this.data('progress-value')) {
+                progressPercentage = $this.data('progress-value');
+            } else {
+                // grab the value of the adjacent input
+                progressPercentage = $this.prev().val() / 100;
+            }
+
+            ui.setProgress(progressPercentage, $progressBar);
+        });
+
+        $('.test__button--start-progress').on('click', function() {
+            var $this = $(this);
+            var $progressBar = $this.parent().find('.c-progress-bar');
+
+            if ($this.data('incrementing')) {
+                clearInterval($this.data('incrementing'));
+                $this.data('incrementing', false);
+            }
+
+            $this.data('incrementing', incrementProgress($progressBar));
+        });
+
+        $('.test__button--change-state').on('change', function() {
+            var $this = $(this);
+            var $progressBar = $this.parent().find('.c-progress-bar');
+            var value = $this.val();
+
+            var label = '';
+
+            if (value === 'inprogress') {
+                label = 'Downloading';
+            } else if (value === 'success') {
+                label = 'Download Successful';
+            } else {
+                label = 'Error Downloading';
+            }
+
+            ui.setState(value, label, $progressBar);
+        });
+    };
+
+    bindEvents();
+    ui.init(0.65);
 });

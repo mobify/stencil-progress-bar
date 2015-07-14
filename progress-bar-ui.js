@@ -9,14 +9,15 @@ define([
         q4: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0], [45,0], [22.5,0], [45,0]]
     };
 
-    var init = function() {
-        _bindEvents();
-
-        setProgress(0.65);
+    var init = function(percentage) {
+        var progress = percentage || 0;
+        setProgress(progress);
     };
 
     var setProgress = function(percentage, element) {
-        var percentString = percentage * 100 + '%'
+        percentage = _clampPercentage(percentage);
+
+        var percentString = parseInt(percentage * 100, 10) + '%'
         var inversePercent = -100 + (percentage * 100);
 
         var progressBar = element || '.c-progress-bar';
@@ -83,11 +84,15 @@ define([
         $progressBar.find('svg polygon').attr('points', pointsString);
     };
 
-    var _bindEvents = function() {
-        $('.c-progress-bar').on('progressChanged', function(e, percentage) {
-            setProgress(percentage, this);
-        });
-    };
+    var _clampPercentage = function(percentage) {
+        if (percentage > 1) {
+            percentage = 1;
+        } else if (percentage < 0) {
+            percentage = 0;
+        }
+
+        return percentage;
+    }
 
     return {
         init: init,
