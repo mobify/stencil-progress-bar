@@ -6,12 +6,15 @@
 
 $progress-bar__variable-name: true !default;
 
+// Override Font Awesome's default path
+$fa-font-path: "/bower_components/font-awesome/fonts";
 
 // Dependencies
 // ---
 
 @import 'stencil-variables/variables';
 @import 'level/level';
+@import 'font-awesome/scss/font-awesome';
 
 
 @mixin state-colors($color) {
@@ -106,6 +109,8 @@ $progress-bar__variable-name: true !default;
     width: 25px;
     height: 25px;
 
+    text-align: center;
+
     .c-progress-bar__spinner-section & {
         position: absolute;
         top: 50%;
@@ -113,27 +118,26 @@ $progress-bar__variable-name: true !default;
         transform: translate(-50%, -50%);
     }
 
-    .c--icon-check {
+    .c-progress-bar__icon {
+        display: none;
+
         width: 25px;
         height: 25px;
 
-        background-color: $success-color;
-        mask: url('/bower_components/shoppicon/svg/check.svg') no-repeat 50% 50%;
-        -webkit-mask:  url('/bower_components/shoppicon/svg/check.svg') no-repeat 50% 50%;
+        font-size: 25px;
     }
 
-    .c--icon-redo {
-        width: 25px;
-        height: 25px;
+    .c-icon--check {
+        color: $success-color;
+    }
 
-        background-color: $error-color;
-        mask: url('/bower_components/shoppicon/svg/error.svg') no-repeat 50% 50%;
-        -webkit-mask:  url('/bower_components/shoppicon/svg/error.svg') no-repeat 50% 50%;
+    .c-icon--repeat {
+        color: $error-color;
     }
 
     .c-progress-bar--state-success & {
-        .c--icon-check {
-            display: block;
+        .c-icon--check {
+            display: inline-block;
         }
 
         .c-progress-bar__text {
@@ -142,8 +146,8 @@ $progress-bar__variable-name: true !default;
     }
 
     .c-progress-bar--state-failure & {
-        .c--icon-redo {
-            display: block;
+        .c-icon--repeat {
+            display: inline-block;
         }
 
         .c-progress-bar__text {

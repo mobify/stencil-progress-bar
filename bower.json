@@ -30,7 +30,7 @@
     "stencil-variables": "mobify/stencil-variables#*",
     "level": ">=0.1.0",
     "spline": "~1.0.1",
-    "shoppicon": "https://github.com/ry5n/shoppicon.git",
+    "font-awesome": "~4.3.0",
     "zeptojs": "1.1.6"
   },
   "devDependencies": {
