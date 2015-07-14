@@ -4,7 +4,11 @@
         c-progress-bar--state-{state} 
         {?useSpinner}c-progress-bar--spinner-enabled{/useSpinner} 
         {class}" 
-    {?role}role="{.}"{/role} 
+    role="progressbar"
+    aria-valuenow="0" 
+    aria-valuemin="0" 
+    aria-valuemax="1"
+    aria-valuetext="{label}"
     data-adaptivejs-component="stencil-progress-bar">
     
     <div class="c-progress-bar__spinner-section" hidden>

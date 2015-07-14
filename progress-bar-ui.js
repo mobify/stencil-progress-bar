@@ -40,6 +40,8 @@ define([
 
         $progressBar.find('.c-progress-bar__text').text(percentString);
         $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
+
+        $progressBar.attr('aria-valuenow', percentage);
     };
 
     var setState = function(state, label, element) {
@@ -53,6 +55,8 @@ define([
             $bar.attr('class', newClass);
             $bar.find('.c-progress-bar__label').text(label);
         });
+
+        $progressBar.attr('aria-valuetext', label);
     };
 
     var _updateSpinner = function(percentage, $progressBar) {
