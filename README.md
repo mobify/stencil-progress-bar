@@ -113,16 +113,16 @@ progress-retry | This event fires when the user clicks the Retry button. The Ret
 
 ## Development
 
-* run `npm install`
-* run `bower install`
-* run `grunt serve`
-* compile a custom build of zepto. Run the following:
+* Run `npm install && bower install && bundle install`
+* Compile a custom build of zepto. Run the following:
 ``` 
+cd bower_components/zepto
 npm install
 npm run-script dist
 MODULES="zepto event data touch" npm run-script dist
 ```
-* navigate to [localhost:3000/tests/visual](http://localhost:3000/tests/visual)
+* Run `grunt serve`
+* Navigate to [localhost:3000/tests/visual](http://localhost:3000/tests/visual)
 
 
 
