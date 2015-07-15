@@ -33,13 +33,15 @@ Stencil components installed with the AdaptiveJS generator require no setup. Jus
 ## API
 
 ### Template
+The template accepts the following parameters.
 
+Name | Type | Description
+-----|------|------------
+label | string | Sets the initial label for the progress bar
+state | one of ['inprogress', 'success', 'failure'] | Sets the initial state for the progress bar
+useSpinner | boolean | If `true`, uses the radial form of the progress bar instead of the standard form
 
-#### label
-
-#### state
-
-#### useSpinner
+This component has no template bodies.
 
 
 ### UI Script
@@ -94,6 +96,7 @@ Upon reaching 100%, the progress bar component will not immediately transition i
 ```
 $(element).data('progressbar').setState('success');
 ```
+
 
 #### Events
 
