@@ -17,26 +17,8 @@ define([
         this.$el = $el;
         this.options = $.extend(true, {}, defaults, options);
 
-        this.init(this.options.initialValue);
-    };
-
-    ProgressBar.prototype.init = function init(percentage) {
-        var progress = percentage || 0;
-        this.setProgress(progress);
-
-        // svg defs are global
-        // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
-        var $progressBars = $('.c-progress-bar');
-        $progressBars.each(function(index, progressBar) {
-            var $bar = $(progressBar);
-            var id = _uuid();
-
-            // for whatever reason, zepto can't select the clippath directly
-            $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
-            $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
-        });
-
-        _bindEvents();
+        this.setProgress(this.options.initialValue);
+        _bindEvents(this.$el);
     };
 
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
@@ -141,8 +123,8 @@ define([
         };
     })();
 
-    var _bindEvents = function() {
-        $('.c-progress-bar').on('click', '.c-icon--retry', function() {
+    var _bindEvents = function($progressBar) {
+        $progressBar.on('click', '.c-icon--retry', function() {
             $(this).parents('.c-progress-bar').trigger('progress-retry');
         });
     };
@@ -153,10 +135,17 @@ define([
             // Also, expose a separate instance for each progress bar
             $el.each(function(index, progressBar) {
                 var $bar = $(progressBar);
+                var id = _uuid();
 
                 if (!$bar.data('progressbar')) {
                     $bar.data('progressbar', new ProgressBar($bar, options));
                 }
+
+                // svg defs are global
+                // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
+                // for whatever reason, zepto can't select the clippath directly
+                $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
+                $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
             });
         },
         'STATE_INPROGRESS': 'inprogress',
