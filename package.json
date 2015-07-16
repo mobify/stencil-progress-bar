@@ -21,7 +21,7 @@
     "load-grunt-tasks": "~0.4.0",
     "dustjs-linkedin": "2.3.3",
     "requirejs": "^2.1.0",
-    "adaptivejs": "git+ssh://git@github.com:mobify/adaptivejs.git#components",
+    "adaptivejs": "git+ssh://git@github.com:mobify/adaptivejs.git",
     "grunt-stencil-dust": "git+ssh://git@github.com:mobify/grunt-stencil-dust.git#master"
   }
 }
