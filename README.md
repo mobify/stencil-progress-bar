@@ -116,7 +116,7 @@ progress-retry | This event fires when the user clicks the Retry button. The Ret
 * Run `npm install && bower install && bundle install`
 * Compile a custom build of zepto. Run the following:
 ``` 
-cd bower_components/zepto
+cd bower_components/zeptojs
 npm install
 npm run-script dist
 MODULES="zepto event data touch" npm run-script dist
@@ -131,7 +131,7 @@ MODULES="zepto event data touch" npm run-script dist
 ### Visual Tests
 Each component has a set of visual tests. These are implemented as an html page that is used to manually verify functionality against a spec (how it should look and behave). This is mainly useful for testing CSS and for development.
 
-* Run `npm install && bower install && bundle install`
+* Run `sudo npm install && bower install && bundle install`
 * Run `grunt serve`
 * Navigate to [localhost:3000/tests/visual](http://localhost:3000/tests/visual)
 
