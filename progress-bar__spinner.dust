@@ -16,7 +16,7 @@
 
         <clippath id="q1-clip" clip-path="url(#q1)">
             <rect x="22.5" y="0" width="22.5" height="22.5" transform="rotate(-90, 22.5, 22.5)">
-                <animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="indefinite" fill="freeze"/>
+                <animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="indefinite" fill="freeze" onend="$(this).trigger('end')"/>
             </rect>
         </clippath>
         <clippath id="q2-clip" clip-path="url(#q2)">

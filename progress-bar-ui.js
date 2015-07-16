@@ -25,9 +25,8 @@ define([
         percentage = _clampPercentage(percentage);
 
         _updateBar(percentage, this.$el);
-        //_updateSpinner(percentage, this.$el);
         if (this.$el.find('svg').length) {
-            _animateRadialBar(percentage, this.$el);
+            _updateSpinner(percentage, this.$el);
         }
         _updateText(percentage, this.$el);
 
@@ -59,11 +58,6 @@ define([
         $progress.css("transform", transformText);
     };
 
-    var _updateSpinner = function(percentage, $progressBar) {
-        var points = _findSpinnerPolygonPoints(percentage);
-        _drawSpinnerPolygon(points, $progressBar);
-    };
-
     var _updateText = function(percentage, $progressBar) {
         var percentString = parseInt(percentage * 100, 10) + '%';
 
@@ -71,36 +65,7 @@ define([
         $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
     };
 
-    var _findSpinnerPolygonPoints = function(percentage) {
-        // get angle from percent
-        var cx = 22.5;
-        var cy = 22.5;
-
-        // use a larger radius than the actual radius to account for the stroke
-        var r = 25;
-        var currentPoints;
-
-        var angle = Math.PI * 2 * percentage;
-
-        var x = cx + (r * Math.cos(angle));
-        var y = cy + (r * Math.sin(angle));
-
-        // determine quadrant so we know which other points to draw
-        if (percentage <= 0.25) {
-            currentPoints = points.q1.slice();
-        } else if (percentage > 0.25 && percentage <= 0.5) {
-            currentPoints = points.q2.slice();
-        } else if (percentage > 0.5 && percentage <= 0.75) {
-            currentPoints = points.q3.slice();
-        } else if (percentage > 0.75) {
-            currentPoints = points.q4.slice();
-        }
-
-        currentPoints.push([x, y]);
-        return currentPoints;
-    };
-
-    var _animateRadialBar = function(percentage, $progressBar) {
+    var _updateSpinner = function(percentage, $progressBar) {
         var prevAngle = $progressBar.data('progressbar-angle') || 0;
         var angle = 360 * percentage;
         var $animations = $progressBar.find('animateTransform');
@@ -118,68 +83,83 @@ define([
             return;
         }
 
+        var direction = angle > prevAngle ? 'clockwise': 'counterclockwise';
+        _setAnimationOrder(direction, $animations);
 
-        console.log(angle > prevAngle)
-        if (angle > prevAngle) {
+        var startAnimationIndex = -1;
+        var angleToDeplete = angle;
 
-            var startAnimationIndex = -1;
-            var angleToDeplete = angle;
+        $animations.each(function(index, animation) {
+            var $animation = $(animation);
 
-            $animations.each(function(index, animation) {
-                var $animation = $(animation);
+            // We want to animate from the last animation's position for max smoothness
+            var from = $animation.attr('to') || '-90 22.5 22.5';
+            var to;
 
-                // We want to animate from the last animation's position for max smoothness
-                var from = $animation.attr('to') || '-90 22.5 22.5';
-                var to;
-                var done = false;
+            // Go through each quadrant and give it up to 90 to rotate
+            // If there is any angle remaining, move on to the next quadrant
+            if (angleToDeplete >= 90) {
+                to = '0 22.5 22.5';
+                angleToDeplete -= 90;
+            } else {
+                to = (angleToDeplete - 90) + ' 22.5 22.5';
+                angleToDeplete = 0;
+            }
 
+            $animation.attr({
+                from: from,
+                to: to
+            });
 
-                // Go through each quadrant and give it up to 90 to rotate
-                // If there is any angle remaining, move on to the next quadrant
-                if (angleToDeplete >= 90) {
-                    to = '0 22.5 22.5';
-                    angleToDeplete -= 90;
-                } else {
-                    to = (angleToDeplete - 90) + ' 22.5 22.5';
-                    done = true;
-                }
-
-                $animation.attr({
-                    from: from,
-                    to: to
-                });
-
-                // We always want to start the animation on the first quadrant that has changed
-                // If to and from are the same, this quadrant doesn't actually change
-                // So we don't want to start the animation here as it will add an unnecessary delay
+            // We always want to start the animation on the first quadrant (depending on the direction) that has changed
+            // If to and from are the same, this quadrant doesn't actually change
+            // So we don't want to start the animation here as it will add an unnecessary delay
+            // If we're going clockwise, we want to stop at the first quadrant that has changed
+            // If we're going counter clockwise, we want to stop at the last quadrant that has changed
+            if (direction === 'clockwise') {
                 if (to !== from && startAnimationIndex === -1) {
                     startAnimationIndex = index;
                 }
-
-                if (done) {
-                    return false;
+            } else {
+                if (to !== from) {
+                    startAnimationIndex = index;
                 }
-            });
-
-            if (startAnimationIndex === -1) {
-                // no animation required
-                return;
             }
+        });
 
-            $animations[startAnimationIndex].beginElement();
-
-            $progressBar.data('progressbar-angle', angle);
-            $progressBar.data('progressbar-animating', true);
+        if (startAnimationIndex === -1) {
+            // we couldn't find an element that changed, so no animation required
+            return;
         }
+
+        $animations[startAnimationIndex].beginElement();
+
+        $progressBar.data('progressbar-angle', angle);
+        $progressBar.data('progressbar-animating', true);
 
     };
 
-    var _drawSpinnerPolygon = function(newPoints, $progressBar) {
-        var pointsString = newPoints.reduce(function(prevVal, point, index) {
-            return prevVal += " " + point[0] + "," + point[1];
-        }, '');
+    var _setAnimationOrder = function(order, $animations) {
+        $animations.each(function(index, animation) {
+            var $animation = $(animation);
+            var begin;
 
-        $progressBar.find('svg polygon').attr('points', pointsString);
+            if (order === 'clockwise') {
+                if (index === 0) {
+                    begin = 'indefinite';
+                } else {
+                    begin = 'anim' + index + '.end';
+                }
+            } else {
+                if (index === 3) {
+                    begin = 'indefinite';
+                } else {
+                    begin = 'anim' + (index + 2) + '.end';
+                }
+            }
+
+            $animation.attr('begin', begin);
+        });
     };
 
     var _clampPercentage = function(percentage) {
@@ -207,7 +187,6 @@ define([
 
 
         $progressBar.find('animateTransform').on('end', function() {
-            console.log('ended animation!')
             var $progressBar = $(this).parents('.c-progress-bar');
 
             $progressBar.data('progressbar-animating', false);
