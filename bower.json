@@ -28,6 +28,7 @@
   ],
   "dependencies": {
     "stencil-variables": "mobify/stencil-variables#*",
+    "stencil-utils": "mobify/stencil-utils#dev", // update to master branch when it's ready
     "level": ">=0.1.0",
     "spline": "~1.0.1",
     "font-awesome": "~4.3.0",

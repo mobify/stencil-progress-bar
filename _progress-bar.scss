@@ -15,6 +15,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'stencil-variables/variables';
 @import 'level/level';
 @import 'font-awesome/scss/font-awesome';
+@import 'stencil-utils/dist/visibility/visibility';
 
 
 @mixin state-colors($color) {
@@ -184,23 +185,4 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     .c-progress-bar__background {
         display: none;
     }
-}
-
-
-// Visually Hidden
-//
-// Remove from flow but leave available to screen readers.
-//
-// Attribution:
-// https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
-// https://github.com/suitcss/utils-state/
-
-.u-visually-hidden {
-    position: absolute !important;
-    overflow: hidden !important;
-    width: 1px !important;
-    height: 1px !important;
-    padding: 0 !important;
-    border: 0 !important;
-    clip: rect(1px, 1px, 1px, 1px) !important;
 }
