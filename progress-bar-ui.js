@@ -35,7 +35,7 @@ define([
         // Update labels and add the new state class
         this.$el.each(function(index, bar) {
             var $bar = $(bar);
-            var newClass = $bar.attr('class').replace(/(c-progress-bar--state-)\w*\s/, '$1' + state + ' ');
+            var newClass = $bar.attr('class').replace(/c--(progress|success|error)\s/, 'c--' + state + ' ');
             $bar.attr('class', newClass);
             $bar.find('.c-progress-bar__label').text(label);
         });
@@ -147,9 +147,6 @@ define([
                 $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
                 $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
             });
-        },
-        'STATE_INPROGRESS': 'inprogress',
-        'STATE_SUCCESS': 'success',
-        'STATE_FAILURE': 'failure'
+        }
     };
 });

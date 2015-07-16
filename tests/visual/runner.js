@@ -36,16 +36,16 @@ require([
     });
 
     // Define any context required for the tests:
-    var context = {
+    context = {
         repo: 'https://github.com/mobify/stencil-progress-bar',
         selectMarkup: 'Insert example markup here',
         useSpinner: true,
-        state_inprogress: 'inprogress',
+        state_progress: 'progress',
         state_success: 'success',
-        state_failure: 'failure',
-        label_inprogress: 'Downloading',
+        state_error: 'error',
+        label_progress: 'Downloading',
         label_success: 'Download Successful',
-        label_failure: 'Error Downloading'
+        label_error: 'Error Downloading'
     };
 
     // Render
@@ -108,7 +108,7 @@ require([
 
             var label = '';
 
-            if (value === 'inprogress') {
+            if (value === 'progress') {
                 label = 'Downloading';
             } else if (value === 'success') {
                 label = 'Download Successful';
@@ -122,7 +122,7 @@ require([
         });
 
         $('.c-progress-bar').on('progress-retry', function() {
-            $('.test__try-message').append('<div>progress-retry triggered!</div>')
+            $('.test__try-message').append('<div>progress-retry triggered!</div>');
         });
     };
 

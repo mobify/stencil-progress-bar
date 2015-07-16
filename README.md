@@ -89,7 +89,7 @@ $(element).data('progressbar').setProgress(0.5);
 
 ##### .setState(state)
 
-Use this function to change the state of the progress bar. The progress bar component supports 3 states: `inprogress`, `success`, and `failure`. These states determine the visual appearance of the component.
+Use this function to change the state of the progress bar. The progress bar component supports 3 states: `progress`, `success`, and `error`. These states determine the visual appearance of the component.
 
 Upon reaching 100%, the progress bar component will not immediately transition into either success or failure states - you need to call these manually.
 

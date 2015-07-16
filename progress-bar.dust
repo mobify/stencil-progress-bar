@@ -1,18 +1,7 @@
-<div 
-    {?id}id="{.}"{/id} 
-    class="c-progress-bar 
-        c-progress-bar--state-{state} 
-        {?useSpinner}c-progress-bar--spinner-enabled{/useSpinner} 
-        {class}" 
-    role="progressbar"
-    aria-valuenow="0" 
-    aria-valuemin="0" 
-    aria-valuemax="1"
-    aria-valuetext="{label}"
-    data-adaptivejs-component="stencil-progress-bar">
-    
+<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?useSpinner}c--spin{/useSpinner} {class}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
+
     {?useSpinner}
-        {@c-progress-bar__spinner /}
+        {@c-progress-bar__spinner/}
     {/useSpinner}
 
     <div class="c-progress-bar__bar-section">
@@ -23,7 +12,7 @@
     </div>
 
     <div class="c-progress-bar__extra-section">
-        {@c-progress-bar__indicator /}
+        {@c-progress-bar__indicator/}
     </div>
     <span class="c-progress-bar__status u-visually-hidden"></span>
 

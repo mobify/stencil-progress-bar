@@ -4,13 +4,16 @@
 // Configurable Variables
 // ---
 
-$progress-bar__variable-name: true !default;
+$progress-bar__progress-color: black !default;
+$progress-bar__success-color: $success-color !default;
+$progress-bar__error-color: $error-color !default;
 
-// Override Font Awesome's default path
-$fa-font-path: "/bower_components/font-awesome/fonts";
 
 // Dependencies
 // ---
+
+// Override Font Awesome's default path
+$fa-font-path: '/bower_components/font-awesome/fonts';
 
 @import 'stencil-variables/variables';
 @import 'level/level';
@@ -18,33 +21,18 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'stencil-utils/dist/visibility/visibility';
 
 
-@mixin state-colors($color) {
-    .c-progress-bar__label {
-        color: $color;
-    }
-
-    .c-progress-bar__progress {
-        background-color: $color;
-    }
-
-    .c-progress-bar__spinner-progress {
-        stroke: $color;
-    }
-}
-
 // Progress Bar root
 // ---
 
 .c-progress-bar {
     display: flex;
+    align-items: center;
     height: $tap-size;
     margin: 0 15px;
-
-    align-items: center;
 }
 
 
-// Process Bar sub-component
+// Radial Process Bar
 // ---
 
 .c-progress-bar__spinner-section {
@@ -66,20 +54,44 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         position: absolute;
         top: 50%;
         left: 50%;
+
         transform: translate(-50%, -50%);
+    }
+
+    .c--progress & {
+        .c-progress-bar__spinner-progress {
+            stroke: $progress-bar__progress-color;
+        }
+    }
+
+    .c--success & {
+        .c-progress-bar__spinner-progress {
+            stroke: $progress-bar__success-color;
+        }
+    }
+
+    .c--error & {
+        .c-progress-bar__spinner-progress {
+            stroke: $progress-bar__error-color;
+        }
     }
 }
 
-.c-progress-bar__bar-section {
-    margin-right: 5px;
 
+// Horizontal Progress Bar
+// ---
+//
+// 1. When the spinner is shown, we want to hide the bar but keep the text
+
+.c-progress-bar__bar-section {
     flex-grow: 1;
+    margin-right: 5px;
 
     .c-progress-bar__background {
         overflow: hidden;
         height: 5px;
 
-        background: $neutral-50;
+        background-color: $neutral-50;
     }
 
     .c-progress-bar__progress {
@@ -88,11 +100,52 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         height: 5px;
         width: 100%;
 
-        background: $accent-color;
-
         transition: transform 0.5s ease-in;
     }
+
+    .c--spin & {
+        .c-progress-bar__background {
+            display: none; // 1
+        }
+    }
+
+    .c--progress & {
+        .c-progress-bar__label {
+            color: $progress-bar__progress-color;
+        }
+
+        .c-progress-bar__progress {
+            background-color: $progress-bar__progress-color;
+        }
+    }
+
+    .c--success & {
+        .c-progress-bar__label {
+            color: $progress-bar__success-color;
+        }
+
+        .c-progress-bar__progress {
+            background-color: $progress-bar__success-color;
+        }
+    }
+
+    .c--error & {
+        .c-progress-bar__label {
+            color: $progress-bar__error-color;
+        }
+
+        .c-progress-bar__progress {
+            background-color: $progress-bar__error-color;
+        }
+    }
 }
+
+
+// Extra section
+// ---
+//
+// This section is displayed beside the horizontal bar and is used to show the progress indicator text or icon
+// 1. When the spinner is shown, we want to hide this section
 
 .c-progress-bar__extra-section {
     position: relative;
@@ -105,7 +158,19 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         right: 0;
         bottom: -3px;
     }
+
+    .c--spin & {
+        display: none;
+    }
 }
+
+
+
+// Indicator
+// ---
+//
+// This section contains the current value of the progress bar and the indicator icons
+// 1. The retry icon is a button, so we override the default button styles
 
 .c-progress-bar__indicator {
     width: 25px;
@@ -117,6 +182,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         position: absolute;
         top: 50%;
         left: 50%;
+
         transform: translate(-50%, -50%);
     }
 
@@ -130,19 +196,19 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     }
 
     .c-icon--check {
-        color: $success-color;
+        color: $progress-bar__success-color;
     }
 
     .c-icon--retry {
-        padding: 0;
-        border: 0;
+        padding: 0; // 1
+        border: 0; // 1
 
-        background: 0;
+        background: 0; // 1
 
-        color: $error-color;
+        color: $progress-bar__error-color;
     }
 
-    .c-progress-bar--state-success & {
+    .c--success & {
         .c-icon--check {
             display: inline-block;
         }
@@ -152,7 +218,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         }
     }
 
-    .c-progress-bar--state-failure & {
+    .c--error & {
         .c-icon--retry {
             display: inline-block;
         }
@@ -160,29 +226,5 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
         .c-progress-bar__text {
             display: none;
         }
-    }
-}
-
-
-.c-progress-bar--state-inprogress {
-    @include state-colors(black);
-}
-
-.c-progress-bar--state-success {
-    @include state-colors($success-color);
-}
-
-.c-progress-bar--state-failure {
-    @include state-colors($error-color);
-
-}
-
-.c-progress-bar--spinner-enabled {
-    .c-progress-bar__extra-section {
-        display: none;
-    }
-
-    .c-progress-bar__background {
-        display: none;
     }
 }
