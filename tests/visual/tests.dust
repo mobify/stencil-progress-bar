@@ -9,14 +9,14 @@
         {/c-spec__case}
 
         {@c-spec__case expect="If useSpinner=true, the spinner is shown and the progress bar is hidden"}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
         {/c-spec__case}
     {/c-spec__test}
 
     {@c-spec__test describe="UI Script"}
         {@c-spec__case expect="The progress can be updated by calling setProgress"}
             {@c-progress-bar state=state_inprogress label=label_inprogress/}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress/}
             <input type="number" class="test__input--change-progress">%
             <button class="test__button--change-progress">Set Progress</button>
         {/c-spec__case}
@@ -27,7 +27,7 @@
         {/c-spec__case}
 
         {@c-spec__case expect="When the progress changes, the spinner and value update"}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner /}
             <button class="test__button--start-progress">Start Progress</button>
         {/c-spec__case}
     {/c-spec__test}
@@ -46,20 +46,20 @@
         {/c-spec__case}
 
         {@c-spec__case expect="When state=inprogress, the spinner and text are black and the value is displayed"}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress /}
         {/c-spec__case}
 
         {@c-spec__case expect="When state=success, the spinner and text are green and a check icon is displayed"}
-            {@c-progress-bar state=state_success label=label_success useSpinner=useSpinner/}
+            {@c-progress-bar state=state_success label=label_success /}
         {/c-spec__case}
 
         {@c-spec__case expect="When state=failure, the spinner and text are red and a redo icon is displayed"}
-            {@c-progress-bar state=state_failure label=label_failure useSpinner=useSpinner/}
+            {@c-progress-bar state=state_failure label=label_failure /}
         {/c-spec__case}
 
         {@c-spec__case expect="The state can be set by calling setState"}
             {@c-progress-bar state=state_inprogress label=label_inprogress/}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress /}
             <select class="test__button--change-state">
                 <option value="inprogress">Set State: In Progress</option>
                 <option value="success">Set State: Success</option>
@@ -71,7 +71,7 @@
     {@c-spec__test describe="Input"}
         {@c-spec__case expect="The progress bar clamps input to the range [0, 1]"}
             {@c-progress-bar state=state_inprogress label=label_inprogress/}
-            {@c-progress-bar state=state_inprogress label=label_inprogress useSpinner=useSpinner/}
+            {@c-progress-bar state=state_inprogress label=label_inprogress /}
             <button class="test__button--change-progress" data-progress-value="-1">Set Progress to -1</button>
             <button class="test__button--change-progress" data-progress-value="2">Set Progress to 2</button>
         {/c-spec__case}
@@ -80,7 +80,7 @@
     {@c-spec__test describe="Events"}
         {@c-spec__case expect="Clicking on the retry button triggers the progress-retry event"}
             {@c-progress-bar state=state_failure label=label_failure/}
-            {@c-progress-bar state=state_failure label=label_failure useSpinner=useSpinner/}
+            {@c-progress-bar state=state_failure label=label_failure /}
             <div class="test__try-message"></div>
         {/c-spec__case}
     {/c-spec__test}

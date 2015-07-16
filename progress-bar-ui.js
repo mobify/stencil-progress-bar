@@ -25,7 +25,10 @@ define([
         percentage = _clampPercentage(percentage);
 
         _updateBar(percentage, this.$el);
-        _updateSpinner(percentage, this.$el);
+        //_updateSpinner(percentage, this.$el);
+        if (this.$el.find('svg').length) {
+            _animateRadialBar(percentage, this.$el);
+        }
         _updateText(percentage, this.$el);
 
         this.$el.attr('aria-valuenow', percentage);
@@ -97,6 +100,80 @@ define([
         return currentPoints;
     };
 
+    var _animateRadialBar = function(percentage, $progressBar) {
+        var prevAngle = $progressBar.data('progressbar-angle') || 0;
+        var angle = 360 * percentage;
+        var $animations = $progressBar.find('animateTransform');
+
+        var animating = $progressBar.data('progressbar-animating');
+
+        // if a new animation is started while one is currently ongoing
+        // everything will break
+        // when this happens, quadrants will not wait for the previous animation to complete like they should
+        // for some reason
+        // so, if we're currently animating, don't start another animation
+        // TODO: we don't want to lose any progress, so save the value we tried to animate it to
+        if (animating) {
+            //$progressBar.data('progressbar-next', percentage);
+            return;
+        }
+
+
+        console.log(angle > prevAngle)
+        if (angle > prevAngle) {
+
+            var startAnimationIndex = -1;
+            var angleToDeplete = angle;
+
+            $animations.each(function(index, animation) {
+                var $animation = $(animation);
+
+                // We want to animate from the last animation's position for max smoothness
+                var from = $animation.attr('to') || '-90 22.5 22.5';
+                var to;
+                var done = false;
+
+
+                // Go through each quadrant and give it up to 90 to rotate
+                // If there is any angle remaining, move on to the next quadrant
+                if (angleToDeplete >= 90) {
+                    to = '0 22.5 22.5';
+                    angleToDeplete -= 90;
+                } else {
+                    to = (angleToDeplete - 90) + ' 22.5 22.5';
+                    done = true;
+                }
+
+                $animation.attr({
+                    from: from,
+                    to: to
+                });
+
+                // We always want to start the animation on the first quadrant that has changed
+                // If to and from are the same, this quadrant doesn't actually change
+                // So we don't want to start the animation here as it will add an unnecessary delay
+                if (to !== from && startAnimationIndex === -1) {
+                    startAnimationIndex = index;
+                }
+
+                if (done) {
+                    return false;
+                }
+            });
+
+            if (startAnimationIndex === -1) {
+                // no animation required
+                return;
+            }
+
+            $animations[startAnimationIndex].beginElement();
+
+            $progressBar.data('progressbar-angle', angle);
+            $progressBar.data('progressbar-animating', true);
+        }
+
+    };
+
     var _drawSpinnerPolygon = function(newPoints, $progressBar) {
         var pointsString = newPoints.reduce(function(prevVal, point, index) {
             return prevVal += " " + point[0] + "," + point[1];
@@ -127,6 +204,20 @@ define([
         $progressBar.on('click', '.c-icon--retry', function() {
             $(this).parents('.c-progress-bar').trigger('progress-retry');
         });
+
+
+        $progressBar.find('animateTransform').on('end', function() {
+            console.log('ended animation!')
+            var $progressBar = $(this).parents('.c-progress-bar');
+
+            $progressBar.data('progressbar-animating', false);
+
+            // if next, run it
+            if ($progressBar.data('progressbar-next')) {
+                //_animateRadialBar($progressBar.data('progressbar-next'), $progressBar);
+            }
+        });
+
     };
 
     return {
@@ -144,8 +235,8 @@ define([
                 // svg defs are global
                 // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
                 // for whatever reason, zepto can't select the clippath directly
-                $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
-                $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
+                // $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
+                // $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
             });
         },
         'STATE_INPROGRESS': 'inprogress',
