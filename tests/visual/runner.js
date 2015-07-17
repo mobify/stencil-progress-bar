@@ -67,7 +67,7 @@ require([
 
             element.data('progressbar').setProgress(counter);
             counter += 0.05;
-        }, 500);
+        }, 1000);
     };
 
     var bindEvents = function() {

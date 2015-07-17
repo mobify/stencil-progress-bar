@@ -2,13 +2,6 @@ define([
     'selectorLibrary'
 ], function($) {
 
-    var points = {
-        q1: [[22.5,22.5], [45,22.5], [45,45]],
-        q2: [[22.5,22.5], [45,22.5], [45,45], [0,45]],
-        q3: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0]],
-        q4: [[22.5,22.5], [45,22.5], [45,45], [0,45], [0,0], [45,0], [22.5,0], [45,0]]
-    };
-
     var defaults = {
         initialValue: 0
     };
@@ -17,6 +10,7 @@ define([
         this.$el = $el;
         this.options = $.extend(true, {}, defaults, options);
 
+        _setUniqueIds(this.$el);
         this.setProgress(this.options.initialValue);
         _bindEvents(this.$el);
     };
@@ -79,12 +73,12 @@ define([
         // so, if we're currently animating, don't start another animation
         // TODO: we don't want to lose any progress, so save the value we tried to animate it to
         if (animating) {
-            //$progressBar.data('progressbar-next', percentage);
+            $progressBar.data('progressbar-next', percentage);
             return;
         }
 
         var direction = angle > prevAngle ? 'clockwise': 'counterclockwise';
-        _setAnimationOrder(direction, $animations);
+        _setAnimationOrder(direction, $progressBar, $animations);
 
         var startAnimationIndex = -1;
         var angleToDeplete = angle;
@@ -139,7 +133,9 @@ define([
 
     };
 
-    var _setAnimationOrder = function(order, $animations) {
+    var _setAnimationOrder = function(order, $progressBar, $animations) {
+        var id = $progressBar.data('progressbar-clipid');
+
         $animations.each(function(index, animation) {
             var $animation = $(animation);
             var begin;
@@ -148,13 +144,13 @@ define([
                 if (index === 0) {
                     begin = 'indefinite';
                 } else {
-                    begin = 'anim' + index + '.end';
+                    begin = id + 'anim' + (index - 1) + '.end';
                 }
             } else {
                 if (index === 3) {
                     begin = 'indefinite';
                 } else {
-                    begin = 'anim' + (index + 2) + '.end';
+                    begin = id + 'anim' + (index + 1) + '.end';
                 }
             }
 
@@ -193,10 +189,40 @@ define([
 
             // if next, run it
             if ($progressBar.data('progressbar-next')) {
-                //_animateRadialBar($progressBar.data('progressbar-next'), $progressBar);
+                //_updateSpinner($progressBar.data('progressbar-next'), $progressBar);
             }
         });
 
+    };
+
+    // svg defs are global
+    // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
+    // unfortunately, this means we have to set a lot of ids :(
+    var _setUniqueIds = function($progressBar) {
+        var id = _uuid();
+
+        $progressBar.data('progressbar-clipid', id);
+
+        // the first four clip paths represent the quadrants
+        // these are the same between all progress bars, so we won't worry about them
+        // the next four are the unique clipping paths
+        // using this weird selector because zepto apparently can't select clippath directly
+        var $uniqueClippingPaths = $progressBar.find('rect').parent().slice(4);
+        var $progressCircles = $progressBar.find('.c-progress-bar__spinner-progress');
+
+        $uniqueClippingPaths.each(function(index, clippingPath) {
+            var $clippingPath = $(clippingPath);
+            var clipId = 'progress-bar-' + id + '__clip-' + index;
+
+            $clippingPath.attr('id', clipId);
+            $progressCircles.eq(index).attr('clip-path', 'url(#' + clipId + ')');
+
+            // the animation ids cannot include dashes
+            // if a dash is included in the begin attribute, the animation will not begin
+            // for example, begin="other-anim.end" will never run
+            // but begin="otheranim.end" will run
+            $clippingPath.find('animateTransform').attr('id', id + 'anim' + index);
+        });
     };
 
     return {
@@ -205,17 +231,10 @@ define([
             // Also, expose a separate instance for each progress bar
             $el.each(function(index, progressBar) {
                 var $bar = $(progressBar);
-                var id = _uuid();
 
                 if (!$bar.data('progressbar')) {
                     $bar.data('progressbar', new ProgressBar($bar, options));
                 }
-
-                // svg defs are global
-                // so, to ensure that each progress bar is clipping correctly, we need to give a unique id to each
-                // for whatever reason, zepto can't select the clippath directly
-                // $bar.find('polygon').parent().attr('id', 'c-progress-clip-' + id);
-                // $bar.find('.c-progress-bar__spinner-progress').attr('clip-path', 'url(#c-progress-clip-' + id + ')');
             });
         },
         'STATE_INPROGRESS': 'inprogress',
