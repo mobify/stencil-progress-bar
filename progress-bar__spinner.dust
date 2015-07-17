@@ -1,5 +1,5 @@
-<div class="c-progress-bar__spinner-section">
-    <svg class="c-progress-bar__spinner" width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div class="c-progress-bar__spinner">
+    <svg class="c-progress-bar__svg" width="45" height="45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
             <clippath>
                 <polygon points="22.5,22.5" transform="rotate(-90, 22.5, 22.5)"/>

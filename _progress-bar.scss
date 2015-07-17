@@ -35,7 +35,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // Radial Process Bar
 // ---
 
-.c-progress-bar__spinner-section {
+.c-progress-bar__spinner {
     &:not(:empty) {
         position: relative;
 
@@ -83,7 +83,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 //
 // 1. When the spinner is shown, we want to hide the bar but keep the text
 
-.c-progress-bar__bar-section {
+.c-progress-bar__bar {
     flex-grow: 1;
     margin-right: 5px;
 
@@ -147,7 +147,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // This section is displayed beside the horizontal bar and is used to show the progress indicator text or icon
 // 1. When the spinner is shown, we want to hide this section
 
-.c-progress-bar__extra-section {
+.c-progress-bar__extra {
     position: relative;
 
     width: 35px;
@@ -178,7 +178,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
     text-align: center;
 
-    .c-progress-bar__spinner-section & {
+    .c-progress-bar__spinner & {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -195,11 +195,11 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         font-size: 25px;
     }
 
-    .c-icon--check {
+    .c--check {
         color: $progress-bar__success-color;
     }
 
-    .c-icon--retry {
+    .c--retry {
         padding: 0; // 1
         border: 0; // 1
 
@@ -209,7 +209,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     }
 
     .c--success & {
-        .c-icon--check {
+        .c--check {
             display: inline-block;
         }
 
@@ -219,7 +219,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     }
 
     .c--error & {
-        .c-icon--retry {
+        .c--retry {
             display: inline-block;
         }
 
