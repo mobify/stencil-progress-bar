@@ -2,13 +2,14 @@ require.config({
     paths: {
         'dust-full': '../../node_modules/dustjs-linkedin/dist/dust-full',
         'adaptivejs': '../../node_modules/adaptivejs',
-        'selectorLibrary': '../../bower_components/zeptojs/dist/zepto'
+        '$': '../../bower_components/zeptojs/dist/zepto',
+        'deckard': '../../bower_components/deckard/dist/deckard'
     },
     shim: {
         'dust-full': {
             'exports': 'dust'
         },
-        'selectorLibrary': {
+        '$': {
             'exports': '$'
         }
     },
@@ -67,7 +68,7 @@ require([
 
             element.data('progressbar').setProgress(counter);
             counter += 0.05;
-        }, 1000);
+        }, 550);
     };
 
     var bindEvents = function() {
@@ -122,12 +123,12 @@ require([
         });
 
         $('.c-progress-bar').on('progress-retry', function() {
-            $('.test__try-message').append('<div>progress-retry triggered!</div>')
+            $('.test__try-message').append('<div>progress-retry triggered!</div>');
         });
     };
 
     bindEvents();
     ui.init($('.c-progress-bar'), {
-        initialValue: 0.65
+        // initialValue: 0.65
     });
 });

@@ -16,22 +16,22 @@
 
         <clippath id="q1-clip" clip-path="url(#q1)">
             <rect x="22.5" y="0" width="22.5" height="22.5" transform="rotate(-90, 22.5, 22.5)">
-                <animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="indefinite" fill="freeze" onend="$(this).trigger('end')"/>
+                <animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="indefinite" fill="freeze"/>
             </rect>
         </clippath>
         <clippath id="q2-clip" clip-path="url(#q2)">
             <rect x="22.5" y="22.5" width="22.5" height="22.5" transform="rotate(-90, 22.5, 22.5)">
-                <animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="anim1.end" fill="freeze"/>
+                <animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim1.end" fill="freeze"/>
             </rect>
         </clippath>
         <clippath id="q3-clip" clip-path="url(#q3)">
             <rect x="0" y="22.5" width="22.5" height="22.5" transform="rotate(-90, 22.5, 22.5)">
-                <animateTransform id="anim3" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="anim2.end" fill="freeze"/>
+                <animateTransform id="anim3" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim2.end" fill="freeze"/>
             </rect>
         </clippath>
         <clippath id="q4-clip" clip-path="url(#q4)">
             <rect x="0" y="0" width="22.5" height="22.5" transform="rotate(-90, 22.5, 22.5)">
-                <animateTransform id="anim4" attributeName="transform" attributeType="XML" type="rotate" dur="0.25s" begin="anim3.end" fill="freeze" onend="$(this).trigger('end')"/>
+                <animateTransform id="anim4" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim3.end" fill="freeze"/>
             </rect>
         </clippath>
     </defs>

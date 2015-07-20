@@ -1,6 +1,44 @@
 define([
-    'selectorLibrary'
+    '$',
+    'deckard'
 ], function($) {
+
+    // Utilities
+
+    var _clampPercentage = function(percentage) {
+        if (percentage > 1) {
+            percentage = 1;
+        } else if (percentage < 0) {
+            percentage = 0;
+        }
+
+        return percentage;
+    };
+
+    var _uuid = (function() {
+        var counter = 0;
+
+        return function() {
+            return counter++;
+        };
+    })();
+
+    var _throttle = function(fn, limit) {
+        var wait = false;
+        return function () {
+            var context = this;
+            var args = arguments;
+
+            if (!wait) {
+                fn.apply(context, args);
+                wait = true;
+                setTimeout(function () {
+                    wait = false;
+                }, limit);
+            }
+        };
+    };
+
 
     var defaults = {
         initialValue: 0
@@ -40,7 +78,7 @@ define([
     };
 
 
-    // Utilities shared by all progress bar instances
+    // Methods shared by all progress bar instances
 
     var _updateBar = function(percentage, $progressBar) {
         $progress = $progressBar.find('.c-progress-bar__progress');
@@ -59,32 +97,19 @@ define([
         $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
     };
 
-    var _updateSpinner = function(percentage, $progressBar) {
+    var __updateSpinner = function(percentage, $progressBar) {
         var prevAngle = $progressBar.data('progressbar-angle') || 0;
         var angle = 360 * percentage;
         var $animations = $progressBar.find('animateTransform');
 
-        var animating = $progressBar.data('progressbar-animating');
-
-        // if a new animation is started while one is currently ongoing
-        // everything will break
-        // when this happens, quadrants will not wait for the previous animation to complete like they should
-        // for some reason
-        // so, if we're currently animating, don't start another animation
-        // TODO: we don't want to lose any progress, so save the value we tried to animate it to
-        if (animating) {
-            $progressBar.data('progressbar-next', percentage);
-            return;
-        }
-
         var direction = angle > prevAngle ? 'clockwise': 'counterclockwise';
-        _setAnimationOrder(direction, $progressBar, $animations);
 
         var startAnimationIndex = -1;
         var angleToDeplete = angle;
 
         $animations.each(function(index, animation) {
             var $animation = $(animation);
+            $animation.attr('begin', 'indefinite');
 
             // We want to animate from the last animation's position for max smoothness
             var from = $animation.attr('to') || '-90 22.5 22.5';
@@ -126,12 +151,19 @@ define([
             return;
         }
 
+        _setAnimationOrder(direction, $progressBar, $animations);
+
         $animations[startAnimationIndex].beginElement();
 
         $progressBar.data('progressbar-angle', angle);
-        $progressBar.data('progressbar-animating', true);
-
     };
+
+    // If a new animation is started while one is currently ongoing,
+    // quadrants will not wait for the previous animation to complete like they should
+    // The solution: if we're currently animating, don't start another animation!
+    // Throttle requests to _updateSpinner to one every 0.5s
+    // As that's how long it takes the animation to complete
+    var _updateSpinner = _throttle(__updateSpinner, 1);
 
     var _setAnimationOrder = function(order, $progressBar, $animations) {
         var id = $progressBar.data('progressbar-clipid');
@@ -144,13 +176,13 @@ define([
                 if (index === 0) {
                     begin = 'indefinite';
                 } else {
-                    begin = id + 'anim' + (index - 1) + '.end';
+                    begin = 'anim__' + id + '_' + (index - 1) + '.end';
                 }
             } else {
                 if (index === 3) {
                     begin = 'indefinite';
                 } else {
-                    begin = id + 'anim' + (index + 1) + '.end';
+                    begin = 'anim__' + id + '_' + (index + 1) + '.end';
                 }
             }
 
@@ -158,40 +190,26 @@ define([
         });
     };
 
-    var _clampPercentage = function(percentage) {
-        if (percentage > 1) {
-            percentage = 1;
-        } else if (percentage < 0) {
-            percentage = 0;
-        }
-
-        return percentage;
-    };
-
-    var _uuid = (function() {
-        var counter = 0;
-
-        return function() {
-            return counter++;
-        };
-    })();
-
     var _bindEvents = function($progressBar) {
         $progressBar.on('click', '.c-icon--retry', function() {
             $(this).parents('.c-progress-bar').trigger('progress-retry');
         });
 
+        // For whatever reason, Firefox really really doesn't like fill="freeze"
+        // If fill="freeze", Firefox act as if the animation never fully ended
+        // If any of the animationTransition elements' attributes are changed
+        // they will immediately animation instead of waiting for the previous animation to finish
+        // Because fill="freeze" is what makes the effect of the animation stay after it is completed
+        // We need to fake that behaviour
+        // This works but is suuuuuper janky :(
+        if ($.browser.firefox) {
+            $progressBar.find('animateTransform').on('progressend', function() {
+                var $this = $(this);
+                var to = $(this).attr('to');
 
-        $progressBar.find('animateTransform').on('end', function() {
-            var $progressBar = $(this).parents('.c-progress-bar');
-
-            $progressBar.data('progressbar-animating', false);
-
-            // if next, run it
-            if ($progressBar.data('progressbar-next')) {
-                //_updateSpinner($progressBar.data('progressbar-next'), $progressBar);
-            }
-        });
+                $(this).parent().attr('transform', 'rotate(' + to + ')');
+            });
+        }
 
     };
 
@@ -221,12 +239,19 @@ define([
             // if a dash is included in the begin attribute, the animation will not begin
             // for example, begin="other-anim.end" will never run
             // but begin="otheranim.end" will run
-            $clippingPath.find('animateTransform').attr('id', id + 'anim' + index);
+            // also, Firefox doesn't like animation ids that start with numbers
+            $clippingPath.find('animateTransform').attr('id', 'anim__' + id + '_' + index);
         });
     };
 
     return {
         init: function($el, options) {
+            if ($.browser.firefox) {
+                $animation = $el.find('animateTransform');
+                $animation.attr('fill', 'remove');
+                $animation.attr('onend', '$(this).trigger("progressend")');
+            }
+
             // If not already initialized, create it and expose it through the data method.
             // Also, expose a separate instance for each progress bar
             $el.each(function(index, progressBar) {
