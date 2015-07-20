@@ -23,17 +23,39 @@ define([
         };
     })();
 
+    // Use this to throttle requests to __updateSpinner
+    // We need to store all this data for each 'instance' so they don't affect one another
+    // Specifically, so they don't throttle each other
     var _throttle = function(fn, limit) {
-        var wait = false;
-        return function () {
-            var context = this;
-            var args = arguments;
 
-            if (!wait) {
-                fn.apply(context, args);
-                wait = true;
-                setTimeout(function () {
-                    wait = false;
+        return function (percentage, $progressBar) {
+            var context = this;
+            var instance = $progressBar.data('progressbar-timer');
+
+            instance.timerArgs = arguments;
+
+            // Unless there is already an ongoing animation, we can skip the timer
+            if (instance.skipTimer || instance.skipTimer === undefined) {
+
+                fn.apply(context, instance.timerArgs);
+                instance.skipTimer = false;
+
+                // if this animation completes without a timer being started
+                // the next one doesn't need to wait
+                setTimeout(function() {
+                    if (!instance.timer) {
+                        instance.skipTimer = true;
+                    }
+                }, limit);
+                return;
+            }
+
+            if (!instance.timer) {
+                instance.timer = setTimeout(function() {
+                    fn.apply(context, instance.timerArgs);
+
+                    instance.timer = null;
+                    instance.skipTimer = true;
                 }, limit);
             }
         };
@@ -49,8 +71,12 @@ define([
         this.options = $.extend(true, {}, defaults, options);
 
         _setUniqueIds(this.$el);
-        this.setProgress(this.options.initialValue);
         _bindEvents(this.$el);
+
+        // this object will store timer information that allows the animation to be throttled
+        this.$el.data('progressbar-timer', {});
+
+        this.setProgress(this.options.initialValue);
     };
 
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
@@ -163,7 +189,7 @@ define([
     // The solution: if we're currently animating, don't start another animation!
     // Throttle requests to _updateSpinner to one every 0.5s
     // As that's how long it takes the animation to complete
-    var _updateSpinner = _throttle(__updateSpinner, 1);
+    var _updateSpinner = _throttle(__updateSpinner, 500);
 
     var _setAnimationOrder = function(order, $progressBar, $animations) {
         var id = $progressBar.data('progressbar-clipid');
