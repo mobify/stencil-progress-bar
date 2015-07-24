@@ -75,6 +75,12 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
             stroke: $progress-bar__error-color;
         }
     }
+
+    .c--direction-rtl & {
+        .c-progress-bar__svg {
+            transform: scaleX(-1);
+        }
+    }
 }
 
 
@@ -88,6 +94,8 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     margin-right: 5px;
 
     .c-progress-bar__background {
+        position: relative;
+
         overflow: hidden;
         height: 5px;
 
@@ -95,6 +103,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     }
 
     .c-progress-bar__progress {
+        position: absolute;
         transform: translate3d(-100%, 0, 0);
 
         height: 5px;
@@ -136,6 +145,13 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
         .c-progress-bar__progress {
             background-color: $progress-bar__error-color;
+        }
+    }
+
+    .c--direction-rtl & {
+        .c-progress-bar__progress {
+            left: 100%;
+            transform: translate3d(100%, 0, 0);
         }
     }
 }

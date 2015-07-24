@@ -84,4 +84,16 @@
             <div class="test__try-message"></div>
         {/c-spec__case}
     {/c-spec__test}
+
+    {@c-spec__test describe="RTL"}
+        <div dir="rtl">
+            {@c-spec__case expect="The progress bar should fill right to left if the class c--direction-rtl is added"}
+                {@c-progress-bar state=state_progress label=label_progress class="c--direction-rtl"/}
+            {/c-spec__case}
+
+            {@c-spec__case expect="The progress bar should fill counter-clockwise if the class c--direction-rtl is added"}
+                {@c-progress-bar state=state_progress label=label_progress useSpinner=useSpinner class="c--direction-rtl"/}
+            {/c-spec__case}
+        </div>
+    {/c-spec__test}
 {/c-spec}

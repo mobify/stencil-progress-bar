@@ -70,6 +70,8 @@ define([
         this.$el = $el;
         this.options = $.extend(true, {}, defaults, options);
 
+        this.direction = this.$el.hasClass('c--direction-rtl') ? 'rtl' : 'ltr';
+
         _setUniqueIds(this.$el);
         _bindEvents(this.$el);
 
@@ -82,7 +84,7 @@ define([
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
         percentage = _clampPercentage(percentage);
 
-        _updateBar(percentage, this.$el);
+        _updateBar(percentage, this.direction, this.$el);
         if (this.$el.find('svg').length) {
             _updateSpinner(percentage, this.$el);
         }
@@ -106,14 +108,21 @@ define([
 
     // Methods shared by all progress bar instances
 
-    var _updateBar = function(percentage, $progressBar) {
-        $progress = $progressBar.find('.c-progress-bar__progress');
+    var _updateBar = function(percentage, direction, $progressBar) {
+        $progressFill = $progressBar.find('.c-progress-bar__progress');
 
-        var inversePercent = -100 + (percentage * 100);
-        var transformText = "translate3d(" + inversePercent + "%, 0, 0)";
+        var percentageToUse;
 
-        $progress.css("-webkit-transform", transformText);
-        $progress.css("transform", transformText);
+        if (direction === 'ltr') {
+            percentageToUse = -100 + (percentage * 100);
+        } else {
+            percentageToUse = percentage * -100;
+        }
+
+        var transformText = "translate3d(" + percentageToUse + "%, 0, 0)";
+
+        $progressFill.css("-webkit-transform", transformText);
+        $progressFill.css("transform", transformText);
     };
 
     var _updateText = function(percentage, $progressBar) {
