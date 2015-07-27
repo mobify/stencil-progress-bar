@@ -7,6 +7,7 @@
 $progress-bar__progress-color: black !default;
 $progress-bar__success-color: $success-color !default;
 $progress-bar__error-color: $error-color !default;
+$progress-bar__background-color: $neutral-50 !default;
 
 
 // Dependencies
@@ -46,7 +47,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
     .c-progress-bar__spinner {
         .c-progress-bar__spinner-background {
-            stroke: $neutral-50;
+            stroke: $progress-bar__background-color;
         }
     }
 
@@ -99,7 +100,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         overflow: hidden;
         height: 5px;
 
-        background-color: $neutral-50;
+        background-color: $progress-bar__background-color;
     }
 
     .c-progress-bar__progress {

@@ -109,6 +109,12 @@ progress-retry | This event fires when the user clicks the Retry button. The Ret
 
 ### Stylesheet configurable variables
 
+Name | Default | Description
+-----|---------|------------
+$progress-bar__progress-color   | black   | Set the progress bar color when state=progress
+$progress-bar__success-color    | #27ae60 | Set the progress bar color when state=success
+$progress-bar__error-color      | #c0392b | Set the progress bar color when state=error
+$progress-bar__background-color | #888    | Set the color of the progress bar's background
 
 
 ## Development
