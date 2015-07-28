@@ -17,7 +17,7 @@ A progress bar that comes in both standard and radial flavours.
 ## Installation
 
 Install the Stencil Progress Bar using the AdaptiveJS generator:
-```
+```shell
 yo adaptivejs:component --install stencil-progress-bar
 ```
 You can also install interactively by running `yo adaptivejs:component` and choosing the install option.
@@ -37,6 +37,7 @@ The template accepts the following parameters.
 
 Name | Type | Description
 -----|------|------------
+value | number within [0, 1] | Sets the initial value for the progress bar
 label | string | Sets the initial label for the progress bar
 state | one of ['inprogress', 'success', 'failure'] | Sets the initial state for the progress bar
 useSpinner | boolean | If `true`, uses the radial form of the progress bar instead of the standard form
@@ -48,7 +49,7 @@ This component has no template bodies.
 
 First, require the Progress Bar UI script. Then call `ProgressBar.init`.
 
-```
+```js
 require([
     // ...
     'progress-bar-ui'
@@ -56,25 +57,19 @@ require([
     // ...
     ProgressBar
 ) {
-    ProgressBar.init($el, options);
+    ProgressBar.init($el);
 });
 ```
 
-`ProgressBar.init` takes two parameters: `$el` and `options`.
+`ProgressBar.init` takes one parameter: `$el`.
 
 #### $el
 
 `$el` is the progress bar element. The component's instance is accessible through this DOM node. For instance, the following calls the `setProgress` method on an instance of the Progress Bar component:
 
-```
+```js
 $('.c-progress-bar').data('progressbar').setProgress(0.5);
 ```
-
-#### Options
-
-Name | Type | Default | Description
------|------|---------|------------
-initialValue | number between 0 and 1 | 0 | Sets the initial value for the progress bar.
 
 
 #### Component Instance Methods
@@ -83,18 +78,19 @@ initialValue | number between 0 and 1 | 0 | Sets the initial value for the progr
 
 Use this function to update the progress bar's value. `percentage` should be a number between 0 and 1. 
 
-```
+```js
 $(element).data('progressbar').setProgress(0.5);
 ```
 
-##### .setState(state)
 
-Use this function to change the state of the progress bar. The progress bar component supports 3 states: `progress`, `success`, and `error`. These states determine the visual appearance of the component.
+##### .setState(state, label)
+
+Use this function to change the state of the progress bar. The progress bar component supports 3 states: `progress`, `success`, and `error`. These states determine the visual appearance of the component. The label is the text displayed with the progress bar.
 
 Upon reaching 100%, the progress bar component will not immediately transition into either success or failure states - you need to call these manually.
 
-```
-$(element).data('progressbar').setState('success');
+```js
+$(element).data('progressbar').setState('success', 'Download successful');
 ```
 
 
@@ -121,7 +117,7 @@ $progress-bar__background-color | #888    | Set the color of the progress bar's 
 
 * Run `npm install && bower install && bundle install`
 * Compile a custom build of zepto. Run the following:
-``` 
+``` shell
 cd bower_components/zeptojs
 npm install
 npm run-script dist
