@@ -187,13 +187,24 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // ---
 //
 // This section contains the current value of the progress bar and the indicator icons
-// 1. The retry icon is a button, so we override the default button styles
 
 .c-progress-bar__indicator {
     width: 25px;
     height: 25px;
 
     text-align: center;
+
+    &.c--text-only {
+        .c-progress-bar__icon {
+            display: none;
+        }
+    }
+
+    &.c--icon-only {
+        .c-progress-bar__text {
+            display: none;
+        }
+    }
 
     .c-progress-bar__spinner & {
         position: absolute;
@@ -202,21 +213,33 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
         transform: translate(-50%, -50%);
     }
+}
 
-    .c-progress-bar__icon {
-        display: none;
 
-        width: 25px;
-        height: 25px;
 
-        font-size: 25px;
-    }
+// Icon
+// ---
+//
+// These are the icons which appear inside the indicator section
+// 1. The retry icon is a button, so we override the default button styles
 
-    .c--check {
+.c-progress-bar__icon {
+    display: none;
+
+    width: 25px;
+    height: 25px;
+
+    font-size: 25px;
+
+    &.c--check {
         color: $progress-bar__success-color;
     }
 
-    .c--retry {
+    .c--success &.c--check {
+        display: inline-block;
+    }
+
+    &.c--retry {
         padding: 0; // 1
         border: 0; // 1
 
@@ -225,23 +248,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         color: $progress-bar__error-color;
     }
 
-    .c--success & {
-        .c--check {
-            display: inline-block;
-        }
-
-        .c-progress-bar__text {
-            display: none;
-        }
-    }
-
-    .c--error & {
-        .c--retry {
-            display: inline-block;
-        }
-
-        .c-progress-bar__text {
-            display: none;
-        }
+    .c--error &.c--retry {
+        display: inline-block;
     }
 }

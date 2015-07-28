@@ -94,13 +94,25 @@ define([
     };
 
     ProgressBar.prototype.setState = function setState(state, label) {
-        // Update labels and add the new state class
-        this.$el.each(function(index, bar) {
-            var $bar = $(bar);
-            var newClass = $bar.attr('class').replace(/c--(progress|success|error)\s/, 'c--' + state + ' ');
-            $bar.attr('class', newClass);
-            $bar.find('.c-progress-bar__label').text(label);
-        });
+        // Update labels and add the new state class and modifier
+
+        var newState = 'c--' + state;
+        var newModifier;
+        var $indicator = this.$el.find('.c-progress-bar__indicator');
+
+        if (/success|error/.test(state)) {
+            newModifier = 'c--icon-only';
+        } else {
+            newModifier = 'c--text-only';
+        }
+
+        this.$el.removeClass('c--progress c--success c--error');
+        this.$el.addClass(newState);
+
+        $indicator.removeClass('c--icon-only c--text-only');
+        $indicator.addClass(newModifier);
+
+        this.$el.find('.c-progress-bar__label').text(label);
 
         this.$el.attr('aria-valuetext', label);
     };
