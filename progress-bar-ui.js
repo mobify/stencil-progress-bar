@@ -112,9 +112,17 @@ define([
     ProgressBar.prototype.setState = function setState(state, label) {
         // Update labels and add the new state class and modifier
 
-        var newState = 'c--' + state;
+        var newState;
         var newModifier;
         var $indicator = this.$el.find('.c-progress-bar__indicator');
+
+        // validate the provided state
+        var stateMatch = state.match(/(progress|success|error)/);
+        if (stateMatch && stateMatch[1]) {
+            newState = 'c--' + stateMatch[1];
+        } else {
+            throw 'Invalid state provided - state should be "progress", "success" or "error"';
+        }
 
         if (/success|error/.test(state)) {
             newModifier = 'c--icon-only';
