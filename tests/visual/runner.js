@@ -128,7 +128,5 @@ require([
     };
 
     bindEvents();
-    ui.init($('.c-progress-bar'), {
-        initialValue: 0.65
-    });
+    ui.init($('.c-progress-bar'));
 });

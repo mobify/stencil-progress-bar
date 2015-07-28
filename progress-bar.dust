@@ -1,4 +1,4 @@
-<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?useSpinner}c--spin{/useSpinner} {class}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
+<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?useSpinner}c--spin{/useSpinner} {class}" role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
 
     {?useSpinner}
         {@c-progress-bar__spinner/}

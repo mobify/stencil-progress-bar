@@ -63,14 +63,29 @@ define([
 
 
     var defaults = {
-        initialValue: 0
+        initialValue: 0,
+        direction: 'ltr',
+        label: 'In Progress',
+        state: 'progress'
     };
 
-    var ProgressBar = function ProgressBar($el, options) {
-        this.$el = $el;
-        this.options = $.extend(true, {}, defaults, options);
+    var ProgressBar = function ProgressBar($el) {
+        var optionsFromTemplate = {};
+        var stateMatch;
 
-        this.direction = this.$el.hasClass('c--direction-rtl') ? 'rtl' : 'ltr';
+        this.$el = $el;
+
+        optionsFromTemplate.initialValue = this.$el.attr('aria-valuenow');
+        optionsFromTemplate.direction = this.$el.hasClass('c--direction-rtl') ? 'rtl' : 'ltr';
+        optionsFromTemplate.label = this.$el.find('.c-progress-bar__label').text();
+
+        stateMatch = this.$el.attr('class').match(/c--(progress|success|error)/);
+        if (stateMatch && stateMatch[1]) {
+            optionsFromTemplate.state = stateMatch[1];
+        }
+
+        this.options = $.extend(true, {}, defaults, optionsFromTemplate);
+
 
         _setUniqueIds(this.$el);
         _bindEvents(this.$el);
@@ -78,13 +93,14 @@ define([
         // this object will store timer information that allows the animation to be throttled
         this.$el.data('progressbar-timer', {});
 
+        this.setState(this.options.state, this.options.label);
         this.setProgress(this.options.initialValue);
     };
 
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
         percentage = _clampPercentage(percentage);
 
-        _updateBar(percentage, this.direction, this.$el);
+        _updateBar(percentage, this.options.direction, this.$el);
         if (this.$el.find('svg').length) {
             _updateSpinner(percentage, this.$el);
         }
@@ -118,7 +134,7 @@ define([
     };
 
 
-    // Methods shared by all progress bar instances
+    // Private methods
 
     var _updateBar = function(percentage, direction, $progressBar) {
         $progressFill = $progressBar.find('.c-progress-bar__progress');
