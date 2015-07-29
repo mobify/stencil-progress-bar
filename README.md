@@ -40,7 +40,7 @@ Name | Type | Description
 value | number within [0, 1] | Sets the initial value for the progress bar
 label | string | Sets the initial label for the progress bar
 state | one of ['inprogress', 'success', 'failure'] | Sets the initial state for the progress bar
-useSpinner | boolean | If `true`, uses the radial form of the progress bar instead of the standard form
+isRadial | boolean | If `true`, uses the radial progress bar instead of the linear progress bar
 
 This component has no template bodies.
 

@@ -1,10 +1,10 @@
-<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?useSpinner}c--spin{/useSpinner} {class}" role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
+<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?isRadial}c--radial{/isRadial} {class}" role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
 
-    {?useSpinner}
-        {@c-progress-bar__spinner/}
-    {/useSpinner}
+    {?isRadial}
+        {@c-progress-bar__radial/}
+    {/isRadial}
 
-    <div class="c-progress-bar__bar">
+    <div class="c-progress-bar__linear">
         <div class="c-progress-bar__label">{label}</div>
         <div class="c-progress-bar__background">
             <div class="c-progress-bar__progress"></div>

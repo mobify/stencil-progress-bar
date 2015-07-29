@@ -1,4 +1,4 @@
-<div class="c-progress-bar__spinner">
+<div class="c-progress-bar__radial">
 <svg class="c-progress-bar__svg" width="45" height="45">
     <defs>
         <clippath id="q1">
@@ -36,11 +36,11 @@
         </clippath>
     </defs>
 
-    <circle class="c-progress-bar__spinner-background" cx="22.5" cy="22.5" r="20" stroke="grey" stroke-width="5" fill="none" />
-    <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q1-clip)"/>
-    <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q2-clip)"/>
-    <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q3-clip)"/>
-    <circle class="c-progress-bar__spinner-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q4-clip)"/>
+    <circle class="c-progress-bar__radial-background" cx="22.5" cy="22.5" r="20" stroke="grey" stroke-width="5" fill="none" />
+    <circle class="c-progress-bar__radial-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q1-clip)"/>
+    <circle class="c-progress-bar__radial-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q2-clip)"/>
+    <circle class="c-progress-bar__radial-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q3-clip)"/>
+    <circle class="c-progress-bar__radial-progress" cx="22.5" cy="22.5" r="20" stroke="black" stroke-width="5" fill="none" clip-path="url(#q4-clip)"/>
 </svg>
 
     {@c-progress-bar__indicator /}

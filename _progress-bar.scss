@@ -36,7 +36,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // Radial Process Bar
 // ---
 
-.c-progress-bar__spinner {
+.c-progress-bar__radial {
     &:not(:empty) {
         position: relative;
 
@@ -45,10 +45,8 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         margin-right: 10px;
     }
 
-    .c-progress-bar__spinner {
-        .c-progress-bar__spinner-background {
-            stroke: $progress-bar__background-color;
-        }
+    .c-progress-bar__radial-background {
+        stroke: $progress-bar__background-color;
     }
 
     .c-progress-bar__text {
@@ -60,19 +58,19 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     }
 
     .c--progress & {
-        .c-progress-bar__spinner-progress {
+        .c-progress-bar__radial-progress {
             stroke: $progress-bar__progress-color;
         }
     }
 
     .c--success & {
-        .c-progress-bar__spinner-progress {
+        .c-progress-bar__radial-progress {
             stroke: $progress-bar__success-color;
         }
     }
 
     .c--error & {
-        .c-progress-bar__spinner-progress {
+        .c-progress-bar__radial-progress {
             stroke: $progress-bar__error-color;
         }
     }
@@ -85,12 +83,12 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 }
 
 
-// Horizontal Progress Bar
+// Linear Progress Bar
 // ---
 //
-// 1. When the spinner is shown, we want to hide the bar but keep the text
+// 1. When the radial progress bar is shown, we want to hide the bar but keep the text
 
-.c-progress-bar__bar {
+.c-progress-bar__linear {
     flex-grow: 1;
     margin-right: 5px;
 
@@ -113,7 +111,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         transition: transform 0.5s ease-in;
     }
 
-    .c--spin & {
+    .c--radial & {
         .c-progress-bar__background {
             display: none; // 1
         }
@@ -162,7 +160,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // ---
 //
 // This section is displayed beside the horizontal bar and is used to show the progress indicator text or icon
-// 1. When the spinner is shown, we want to hide this section
+// 1. When the radial progress bar is shown, we want to hide this section
 
 .c-progress-bar__extra {
     position: relative;
@@ -176,7 +174,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         bottom: -3px;
     }
 
-    .c--spin & {
+    .c--radial & {
         display: none;
     }
 }
@@ -206,7 +204,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         }
     }
 
-    .c-progress-bar__spinner & {
+    .c-progress-bar__radial & {
         position: absolute;
         top: 50%;
         left: 50%;

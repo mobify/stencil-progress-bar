@@ -23,7 +23,7 @@ define([
         };
     })();
 
-    // Use this to throttle requests to __updateSpinner
+    // Use this to throttle requests to __updateRadialProgressBar
     // We need to store all this data for each 'instance' so they don't affect one another
     // Specifically, so they don't throttle each other
     var _throttle = function(fn, limit) {
@@ -100,9 +100,9 @@ define([
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
         percentage = _clampPercentage(percentage);
 
-        _updateBar(percentage, this.options.direction, this.$el);
+        _updateLinearProgressBar(percentage, this.options.direction, this.$el);
         if (this.$el.find('svg').length) {
-            _updateSpinner(percentage, this.$el);
+            _updateRadialProgressBar(percentage, this.$el);
         }
         _updateText(percentage, this.$el);
 
@@ -144,7 +144,7 @@ define([
 
     // Private methods
 
-    var _updateBar = function(percentage, direction, $progressBar) {
+    var _updateLinearProgressBar = function(percentage, direction, $progressBar) {
         $progressFill = $progressBar.find('.c-progress-bar__progress');
 
         var percentageToUse;
@@ -168,7 +168,7 @@ define([
         $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
     };
 
-    var __updateSpinner = function(percentage, $progressBar) {
+    var __updateRadialProgressBar = function(percentage, $progressBar) {
         var prevAngle = $progressBar.data('progressbar-angle') || 0;
         var angle = 360 * percentage;
         var $animations = $progressBar.find('animateTransform');
@@ -232,9 +232,9 @@ define([
     // If a new animation is started while one is currently ongoing,
     // quadrants will not wait for the previous animation to complete like they should
     // The solution: if we're currently animating, don't start another animation!
-    // Throttle requests to _updateSpinner to one every 0.5s
+    // Throttle requests to __updateRadialProgressBar to one every 0.5s
     // As that's how long it takes the animation to complete
-    var _updateSpinner = _throttle(__updateSpinner, 500);
+    var _updateRadialProgressBar = _throttle(__updateRadialProgressBar, 500);
 
     var _setAnimationOrder = function(order, $progressBar, $animations) {
         var id = $progressBar.data('progressbar-clipid');
@@ -297,7 +297,7 @@ define([
         // the next four are the unique clipping paths
         // using this weird selector because zepto apparently can't select clippath directly
         var $uniqueClippingPaths = $progressBar.find('rect').parent().slice(4);
-        var $progressCircles = $progressBar.find('.c-progress-bar__spinner-progress');
+        var $progressCircles = $progressBar.find('.c-progress-bar__radial-progress');
 
         $uniqueClippingPaths.each(function(index, clippingPath) {
             var $clippingPath = $(clippingPath);

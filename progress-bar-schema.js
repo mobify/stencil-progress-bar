@@ -11,8 +11,9 @@ define(function(require) {
     return schema({
         '?class': String,
         '?id': String,
+        'value': Number,
         'label': String,
         'state': ['inprogress', 'success', 'failure'],
-        'useSpinner': Boolean
+        'isRadial': Boolean
     });
 });

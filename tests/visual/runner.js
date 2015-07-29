@@ -40,7 +40,7 @@ require([
     context = {
         repo: 'https://github.com/mobify/stencil-progress-bar',
         selectMarkup: 'Insert example markup here',
-        useSpinner: true,
+        isRadial: true,
         state_progress: 'progress',
         state_success: 'success',
         state_error: 'error',
