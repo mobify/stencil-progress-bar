@@ -60,15 +60,19 @@ require([
 
     var incrementProgress = function(element) {
         var counter = 0;
+        var interval;
 
-        return setInterval(function() {
+        interval = setInterval(function() {
             if (counter > 1) {
                 counter = 1;
+                clearInterval(interval);
             }
 
             element.data('progressbar').setProgress(counter);
             counter += 0.05;
         }, 550);
+
+        return interval;
     };
 
     var bindEvents = function() {
