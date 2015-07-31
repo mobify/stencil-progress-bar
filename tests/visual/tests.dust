@@ -89,10 +89,14 @@
         <div dir="rtl">
             {@c-spec__case expect="The progress bar should fill right to left if the class c--direction-rtl is added"}
                 {@c-progress-bar state=state_progress label=label_progress value=0.65 class="c--direction-rtl"/}
+                <input type="number" class="test__input--change-progress">%
+                <button class="test__button--change-progress">Set Progress</button>
             {/c-spec__case}
 
             {@c-spec__case expect="The progress bar should fill counter-clockwise if the class c--direction-rtl is added"}
                 {@c-progress-bar state=state_progress label=label_progress value=0.65 isRadial=isRadial class="c--direction-rtl"/}
+                <input type="number" class="test__input--change-progress">%
+                <button class="test__button--change-progress">Set Progress</button>
             {/c-spec__case}
         </div>
     {/c-spec__test}
