@@ -47,7 +47,9 @@ This component has no template bodies.
 
 ### UI Script
 
-First, require the Progress Bar UI script. Then call `ProgressBar.init`.
+If you don't need to use non-default options when initializing the Progress Bar, you don't need to include anything, as Adaptive.js will do that for you.
+
+If you do need to use non-default options during initialization, you first require the Progress Bar UI script. Then call `ProgressBar.init`.
 
 ```js
 require([
