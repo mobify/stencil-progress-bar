@@ -1,4 +1,4 @@
-<div {?id}id="{.}"{/id} class="c-progress-bar c--{state} {?isRadial}c--radial{/isRadial} {class}" role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
+<div class="c-progress-bar c--{state} {?isRadial}c--radial{/isRadial} {class}" {?id}id="{.}"{/id} role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
 
     {?isRadial}
         {@c-progress-bar__radial/}
