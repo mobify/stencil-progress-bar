@@ -23,11 +23,10 @@ define([
         };
     })();
 
-    // Use this to throttle requests to __updateRadialProgressBar
+    // Use this to throttle requests to _updateRadialProgressBar
     // We need to store all this data for each 'instance' so they don't affect one another
     // Specifically, so they don't throttle each other
     var _throttle = function(fn, limit) {
-
         return function (percentage, $progressBar) {
             var context = this;
             var instance = $progressBar.data('progressbar-timer');
@@ -102,7 +101,7 @@ define([
 
         _updateLinearProgressBar(percentage, this.options.direction, this.$el);
         if (this.$el.find('svg').length) {
-            _updateRadialProgressBar(percentage, this.$el);
+            _throttledUpdateRadialProgressBar(percentage, this.$el);
         }
         _updateText(percentage, this.$el);
 
@@ -145,7 +144,7 @@ define([
     // Private methods
 
     var _updateLinearProgressBar = function(percentage, direction, $progressBar) {
-        $progressFill = $progressBar.find('.c-progress-bar__progress');
+        var $progressFill = $progressBar.find('.c-progress-bar__progress');
 
         var percentageToUse;
 
@@ -155,10 +154,10 @@ define([
             percentageToUse = percentage * -100;
         }
 
-        var transformText = "translate3d(" + percentageToUse + "%, 0, 0)";
+        var transformText = 'translate3d(' + percentageToUse + '%, 0, 0)';
 
-        $progressFill.css("-webkit-transform", transformText);
-        $progressFill.css("transform", transformText);
+        $progressFill.css('-webkit-transform', transformText);
+        $progressFill.css('transform', transformText);
     };
 
     var _updateText = function(percentage, $progressBar) {
@@ -168,7 +167,7 @@ define([
         $progressBar.find('.c-progress-bar__status').text('Progress is ' + percentString);
     };
 
-    var __updateRadialProgressBar = function(percentage, $progressBar) {
+    var _updateRadialProgressBar = function(percentage, $progressBar) {
         var prevAngle = $progressBar.data('progressbar-angle') || 0;
         var angle = 360 * percentage;
         var $animations = $progressBar.find('animateTransform');
@@ -232,9 +231,9 @@ define([
     // If a new animation is started while one is currently ongoing,
     // quadrants will not wait for the previous animation to complete like they should
     // The solution: if we're currently animating, don't start another animation!
-    // Throttle requests to __updateRadialProgressBar to one every 0.5s
+    // Throttle requests to _updateRadialProgressBar to one every 0.5s
     // As that's how long it takes the animation to complete
-    var _updateRadialProgressBar = _throttle(__updateRadialProgressBar, 500);
+    var _throttledUpdateRadialProgressBar = _throttle(_updateRadialProgressBar, 500);
 
     var _setAnimationOrder = function(order, $progressBar, $animations) {
         var id = $progressBar.data('progressbar-clipid');
@@ -276,9 +275,9 @@ define([
         if ($.browser.firefox) {
             $progressBar.find('animateTransform').on('progressend', function() {
                 var $this = $(this);
-                var to = $(this).attr('to');
+                var to = $this.attr('to');
 
-                $(this).parent().attr('transform', 'rotate(' + to + ')');
+                $this.parent().attr('transform', 'rotate(' + to + ')');
             });
         }
 
@@ -318,7 +317,7 @@ define([
     return {
         init: function($el, options) {
             if ($.browser.firefox) {
-                $animation = $el.find('animateTransform');
+                var $animation = $el.find('animateTransform');
                 $animation.attr('fill', 'remove');
                 $animation.attr('onend', '$(this).trigger("progressend")');
             }
