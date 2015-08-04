@@ -317,6 +317,11 @@ define([
     return {
         init: function($el, options) {
             if ($.browser.firefox) {
+                // In Firefox, the animation doesn't end correctly when fill="freeze" is set
+                // See the comment in _bindEvents for more information
+                // For more information about these attributes, see:
+                // fill: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
+                // onend: http://www.w3.org/TR/SVG/script.html#OnEndEventAttribute
                 var $animation = $el.find('animateTransform');
                 $animation.attr('fill', 'remove');
                 $animation.attr('onend', '$(this).trigger("progressend")');
