@@ -86,19 +86,21 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
 
 
-// Linear Progress Bar
+// Progress Bar Middle
 // ---
 //
-// 1. When the radial progress bar is shown, we want to hide the bar but keep the text
+// Holds the linear progress bar and the label
+// Needed as a separate element so we can flexbox everything nicely
 
-.c-progress-bar__linear {
+.c-progress-bar__middle {
     flex-grow: 1;
     margin-right: 5px;
 }
 
+
+
 // Linear Progress Bar Background
 // ---
-//
 
 .c-progress-bar__linear-background {
     position: relative;
@@ -107,10 +109,6 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     height: 5px;
 
     background-color: $progress-bar__background-color;
-
-    .c-progress-bar.c--radial & {
-        display: none; // 1
-    }
 
     .c-progress-bar.c--direction-rtl & {
         transform: scaleX(-1);
