@@ -6,8 +6,8 @@
 
     <div class="c-progress-bar__linear">
         <div class="c-progress-bar__label">{label}</div>
-        <div class="c-progress-bar__background">
-            <div class="c-progress-bar__progress"></div>
+        <div class="c-progress-bar__linear-background">
+            <div class="c-progress-bar__linear-progress"></div>
         </div>
     </div>
 

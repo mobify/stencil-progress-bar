@@ -33,7 +33,8 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 }
 
 
-// Radial Process Bar
+
+// Radial Progress Bar
 // ---
 
 .c-progress-bar__radial {
@@ -44,43 +45,45 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         height: 45px;
         margin-right: 10px;
     }
+}
 
-    .c-progress-bar__radial-background {
-        stroke: $progress-bar__background-color;
+// Radial Progress Bar Background
+// ---
+
+.c-progress-bar__radial-background {
+    stroke: $progress-bar__background-color;
+}
+
+// Radial Progress Bar Progress
+// ---
+//
+// Used to show the current level of progress
+
+.c-progress-bar__radial-progress {
+    .c-progress-bar.c--progress & {
+        stroke: $progress-bar__progress-color;
     }
 
-    .c-progress-bar__text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
+    .c-progress-bar.c--success & {
+        stroke: $progress-bar__success-color;
     }
 
-    .c--progress & {
-        .c-progress-bar__radial-progress {
-            stroke: $progress-bar__progress-color;
-        }
-    }
-
-    .c--success & {
-        .c-progress-bar__radial-progress {
-            stroke: $progress-bar__success-color;
-        }
-    }
-
-    .c--error & {
-        .c-progress-bar__radial-progress {
-            stroke: $progress-bar__error-color;
-        }
-    }
-
-    .c--direction-rtl & {
-        .c-progress-bar__svg {
-            transform: scaleX(-1);
-        }
+    .c-progress-bar.c--error & {
+        stroke: $progress-bar__error-color;
     }
 }
+
+// Radial Progress Bar SVG
+// ---
+//
+// Where the magic happens
+
+.c-progress-bar__svg {
+    .c-progress-bar.c--direction-rtl & {
+        transform: scaleX(-1);
+    }
+}
+
 
 
 // Linear Progress Bar
@@ -91,69 +94,78 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 .c-progress-bar__linear {
     flex-grow: 1;
     margin-right: 5px;
+}
 
-    .c-progress-bar__background {
-        position: relative;
+// Linear Progress Bar Background
+// ---
+//
 
-        overflow: hidden;
-        height: 5px;
+.c-progress-bar__linear-background {
+    position: relative;
 
-        background-color: $progress-bar__background-color;
-    }
+    overflow: hidden;
+    height: 5px;
 
-    .c-progress-bar__progress {
-        position: absolute;
-        transform: translate3d(-100%, 0, 0);
+    background-color: $progress-bar__background-color;
 
-        height: 5px;
-        width: 100%;
-
-        transition: transform 0.5s ease-in;
-    }
-
-    .c--radial & {
-        .c-progress-bar__background {
-            display: none; // 1
-        }
-    }
-
-    .c--progress & {
-        .c-progress-bar__label {
-            color: $progress-bar__progress-color;
-        }
-
-        .c-progress-bar__progress {
-            background-color: $progress-bar__progress-color;
-        }
-    }
-
-    .c--success & {
-        .c-progress-bar__label {
-            color: $progress-bar__success-color;
-        }
-
-        .c-progress-bar__progress {
-            background-color: $progress-bar__success-color;
-        }
-    }
-
-    .c--error & {
-        .c-progress-bar__label {
-            color: $progress-bar__error-color;
-        }
-
-        .c-progress-bar__progress {
-            background-color: $progress-bar__error-color;
-        }
-    }
-
-    .c--direction-rtl & {
-        .c-progress-bar__progress {
-            left: 100%;
-            transform: translate3d(100%, 0, 0);
-        }
+    .c-progress-bar.c--radial & {
+        display: none; // 1
     }
 }
+
+// Linear Progress Bar Progress
+// ---
+//
+// Used to show the current level of progress
+
+.c-progress-bar__linear-progress {
+    position: absolute;
+    transform: translate3d(-100%, 0, 0);
+
+    height: 5px;
+    width: 100%;
+
+    transition: transform 0.5s ease-in;
+
+    .c-progress-bar.c--progress & {
+        background-color: $progress-bar__progress-color;
+    }
+
+    .c-progress-bar.c--success & {
+        background-color: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--error & {
+        background-color: $progress-bar__error-color;
+    }
+
+    .c-progress-bar.c--direction-rtl & {
+        left: 100%;
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+
+
+// Progress Bar Label
+// ---
+//
+// Displays a user defined label which describes the state of progress
+
+.c-progress-bar__label {
+    .c-progress-bar.c--progress & {
+        color: $progress-bar__progress-color;
+    }
+
+    .c-progress-bar.c--success & {
+        color: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--error & {
+        color: $progress-bar__error-color;
+    }
+}
+
 
 
 // Extra section
@@ -168,13 +180,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     width: 35px;
     height: 25px;
 
-    .c-progress-bar__text {
-        position: absolute;
-        right: 0;
-        bottom: -3px;
-    }
-
-    .c--radial & {
+    .c-progress-bar.c--radial & {
         display: none;
     }
 }
@@ -233,7 +239,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         color: $progress-bar__success-color;
     }
 
-    .c--success &.c--check {
+    .c-progress-bar.c--success &.c--check {
         display: inline-block;
     }
 
@@ -246,7 +252,31 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
         color: $progress-bar__error-color;
     }
 
-    .c--error &.c--retry {
+    .c-progress-bar.c--error &.c--retry {
         display: inline-block;
     }
 }
+
+
+
+// Text
+// ---
+//
+// The text that appears inside the progress bar indicator
+
+.c-progress-bar__text {
+    .c-progress-bar__radial & {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
+    .c-progress-bar__extra & {
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+    }
+}
+

@@ -144,7 +144,7 @@ define([
     // Private methods
 
     var _updateLinearProgressBar = function(percentage, direction, $progressBar) {
-        var $progressFill = $progressBar.find('.c-progress-bar__progress');
+        var $progressFill = $progressBar.find('.c-progress-bar__linear-progress');
 
         var percentageToUse;
 
