@@ -111,6 +111,10 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     .c-progress-bar.c--radial & {
         display: none; // 1
     }
+
+    .c-progress-bar.c--direction-rtl & {
+        transform: scaleX(-1);
+    }
 }
 
 // Linear Progress Bar Progress
@@ -137,11 +141,6 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
     .c-progress-bar.c--error & {
         background-color: $progress-bar__error-color;
-    }
-
-    .c-progress-bar.c--direction-rtl & {
-        left: 100%;
-        transform: translate3d(100%, 0, 0);
     }
 }
 

@@ -63,7 +63,6 @@ define([
 
     var defaults = {
         initialValue: 0,
-        direction: 'ltr',
         label: 'In Progress',
         state: 'progress'
     };
@@ -75,7 +74,6 @@ define([
         this.$el = $el;
 
         optionsFromTemplate.initialValue = this.$el.attr('aria-valuenow');
-        optionsFromTemplate.direction = this.$el.hasClass('c--direction-rtl') ? 'rtl' : 'ltr';
         optionsFromTemplate.label = this.$el.find('.c-progress-bar__label').text();
 
         stateMatch = this.$el.attr('class').match(/c--(progress|success|error)/);
@@ -99,7 +97,7 @@ define([
     ProgressBar.prototype.setProgress = function setProgress(percentage) {
         percentage = _clampPercentage(percentage);
 
-        _updateLinearProgressBar(percentage, this.options.direction, this.$el);
+        _updateLinearProgressBar(percentage, this.$el);
         if (this.$el.find('svg').length) {
             _throttledUpdateRadialProgressBar(percentage, this.$el);
         }
@@ -143,16 +141,10 @@ define([
 
     // Private methods
 
-    var _updateLinearProgressBar = function(percentage, direction, $progressBar) {
+    var _updateLinearProgressBar = function(percentage, $progressBar) {
         var $progressFill = $progressBar.find('.c-progress-bar__linear-progress');
 
-        var percentageToUse;
-
-        if (direction === 'ltr') {
-            percentageToUse = -100 + (percentage * 100);
-        } else {
-            percentageToUse = percentage * -100;
-        }
+        var percentageToUse = -100 + (percentage * 100);
 
         var transformText = 'translate3d(' + percentageToUse + '%, 0, 0)';
 
