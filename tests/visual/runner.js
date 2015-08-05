@@ -2,7 +2,7 @@ require.config({
     paths: {
         'dust-full': '../../node_modules/dustjs-linkedin/dist/dust-full',
         'adaptivejs': '../../node_modules/adaptivejs',
-        '$': '../../bower_components/zeptojs/dist/zepto',
+        '$': '../../node_modules/jquery/dist/jquery',
         'deckard': '../../bower_components/deckard/dist/deckard'
     },
     shim: {
@@ -10,7 +10,7 @@ require.config({
             'exports': 'dust'
         },
         '$': {
-            'exports': '$'
+            'exports': 'jQuery'
         }
     },
 });

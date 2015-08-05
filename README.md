@@ -118,13 +118,6 @@ $progress-bar__background-color | #888    | Set the color of the progress bar's 
 ## Development
 
 * Run `npm install && bower install && bundle install`
-* Compile a custom build of zepto. Run the following:
-``` shell
-cd bower_components/zeptojs
-npm install
-npm run-script dist
-MODULES="zepto event data touch" npm run-script dist
-```
 * Run `grunt serve`
 * Navigate to [localhost:3000/tests/visual](http://localhost:3000/tests/visual)
 
