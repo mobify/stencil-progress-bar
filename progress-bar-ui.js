@@ -29,7 +29,7 @@ define([
     var _throttle = function(fn, limit) {
         return function (percentage, $progressBar) {
             var context = this;
-            var instance = $progressBar.data('progressbar-timer');
+            var instance = $progressBar.data('component-timer');
 
             instance.timerArgs = arguments;
 
@@ -88,7 +88,7 @@ define([
         _bindEvents(this.$el);
 
         // this object will store timer information that allows the animation to be throttled
-        this.$el.data('progressbar-timer', {});
+        this.$el.data('component-timer', {});
 
         this.setState(this.options.state, this.options.label);
         this.setProgress(this.options.initialValue);
@@ -160,7 +160,7 @@ define([
     };
 
     var _updateRadialProgressBar = function(percentage, $progressBar) {
-        var prevAngle = $progressBar.data('progressbar-angle') || 0;
+        var prevAngle = $progressBar.data('component-angle') || 0;
         var angle = 360 * percentage;
         var $animations = $progressBar.find('animateTransform');
 
@@ -217,7 +217,7 @@ define([
 
         $animations[startAnimationIndex].beginElement();
 
-        $progressBar.data('progressbar-angle', angle);
+        $progressBar.data('component-angle', angle);
     };
 
     // If a new animation is started while one is currently ongoing,
@@ -228,7 +228,7 @@ define([
     var _throttledUpdateRadialProgressBar = _throttle(_updateRadialProgressBar, 500);
 
     var _setAnimationOrder = function(order, $progressBar, $animations) {
-        var id = $progressBar.data('progressbar-clipid');
+        var id = $progressBar.data('component-clipid');
 
         $animations.each(function(index, animation) {
             var $animation = $(animation);
@@ -281,7 +281,7 @@ define([
     var _setUniqueIds = function($progressBar) {
         var id = _uuid();
 
-        $progressBar.data('progressbar-clipid', id);
+        $progressBar.data('component-clipid', id);
 
         // the first four clip paths represent the quadrants
         // these are the same between all progress bars, so we won't worry about them
@@ -320,7 +320,7 @@ define([
             }
 
             // If not already initialized, create it and expose it through the data method.
-            return $el.data('progressbar') || $el.data('progressbar', new ProgressBar($el));
+            return $el.data('component') || $el.data('component', new ProgressBar($el));
         }
     };
 });

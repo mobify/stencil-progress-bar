@@ -70,7 +70,7 @@ require([
 `$el` is the progress bar element. The component's instance is accessible through this DOM node. For instance, the following calls the `setProgress` method on an instance of the Progress Bar component:
 
 ```js
-$('.c-progress-bar').data('progressbar').setProgress(0.5);
+$('.c-progress-bar').data('component').setProgress(0.5);
 ```
 
 
@@ -81,7 +81,7 @@ $('.c-progress-bar').data('progressbar').setProgress(0.5);
 Use this function to update the progress bar's value. `percentage` should be a number between 0 and 1. 
 
 ```js
-$(element).data('progressbar').setProgress(0.5);
+$(element).data('component').setProgress(0.5);
 ```
 
 
@@ -92,7 +92,7 @@ Use this function to change the state of the progress bar. The progress bar comp
 Upon reaching 100%, the progress bar component will not immediately transition into either success or failure states - you need to call these manually.
 
 ```js
-$(element).data('progressbar').setState('success', 'Download successful');
+$(element).data('component').setState('success', 'Download successful');
 ```
 
 

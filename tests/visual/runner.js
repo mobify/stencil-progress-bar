@@ -72,7 +72,7 @@ require([
                 clearInterval(interval);
             }
 
-            element.data('progressbar').setProgress(counter);
+            element.data('component').setProgress(counter);
             counter += 0.05;
         }, 550);
 
@@ -94,7 +94,7 @@ require([
 
 
             $progressBar.each(function(index, bar) {
-                $(bar).data('progressbar').setProgress(progressPercentage);
+                $(bar).data('component').setProgress(progressPercentage);
             });
         });
 
@@ -126,7 +126,7 @@ require([
             }
 
             $progressBar.each(function(index, bar) {
-                $(bar).data('progressbar').setState(value, label);
+                $(bar).data('component').setState(value, label);
             });
         });
 
