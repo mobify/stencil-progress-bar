@@ -320,14 +320,7 @@ define([
             }
 
             // If not already initialized, create it and expose it through the data method.
-            // Also, expose a separate instance for each progress bar
-            $el.each(function(index, progressBar) {
-                var $bar = $(progressBar);
-
-                if (!$bar.data('progressbar')) {
-                    $bar.data('progressbar', new ProgressBar($bar, options));
-                }
-            });
+            return $el.data('progressbar') || $el.data('progressbar', new ProgressBar($el));
         }
     };
 });

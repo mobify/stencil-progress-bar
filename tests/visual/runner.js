@@ -53,6 +53,10 @@ require([
     dust.render('tests', context, function(err, out) {
         if (!err) {
             document.querySelector('body').innerHTML = out;
+
+            $('[data-adaptivejs-component="stencil-progress-bar"]').each(function(i, el) {
+                ui.init($(el));
+            });
         } else {
             console.log(err);
         }
@@ -132,5 +136,4 @@ require([
     };
 
     bindEvents();
-    ui.init($('.c-progress-bar'));
 });
