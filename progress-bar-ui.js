@@ -253,7 +253,7 @@ define([
     };
 
     var _bindEvents = function($progressBar) {
-        $progressBar.on('click', '.c-icon--retry', function() {
+        $progressBar.on('click', '.c--retry', function() {
             $(this).parents('.c-progress-bar').trigger('progress-retry');
         });
 

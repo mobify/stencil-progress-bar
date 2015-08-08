@@ -79,9 +79,11 @@
 
     {@c-spec__test describe="Events"}
         {@c-spec__case expect="Clicking on the retry button triggers the progress-retry event"}
-            {@c-progress-bar state=state_error label=label_error value=0.65/}
-            {@c-progress-bar state=state_error label=label_error value=0.65 isRadial=isRadial/}
-            <div class="test__try-message"></div>
+            <div class="events-test">
+                {@c-progress-bar state=state_error label=label_error value=0.65/}
+                {@c-progress-bar state=state_error label=label_error value=0.65 isRadial=isRadial/}
+                <div class="test__try-message"></div>
+            </div>
         {/c-spec__case}
     {/c-spec__test}
 

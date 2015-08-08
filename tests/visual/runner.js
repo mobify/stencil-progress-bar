@@ -130,7 +130,7 @@ require([
             });
         });
 
-        $('.c-progress-bar').on('progress-retry', function() {
+        $('.events-test').on('progress-retry', '.c-progress-bar', function() {
             $('.test__try-message').append('<div>progress-retry triggered!</div>');
         });
     };
