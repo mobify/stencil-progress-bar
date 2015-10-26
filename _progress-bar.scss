@@ -22,6 +22,54 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 @import 'stencil-utils/dist/visibility/visibility';
 
 
+$unit: 10px;
+
+$circle-base-unit: $unit*4.5;
+$circle-center: $circle-base-unit/2;
+$circle-stroke: $unit/2; // same stroke as the linear bar
+$circle-radius: ($circle-base-unit - $circle-stroke) / 2;
+
+svg {
+    width: $circle-base-unit;
+    height: $circle-base-unit;
+}
+
+circle {
+    cx: $circle-center;
+    cy: $circle-center;
+    r: $circle-radius;
+    stroke-width: $circle-stroke;
+}
+
+.c-progress-bar__base-quadrant, .c-progress-bar__clip-quadrant {
+    &:nth-child(1) rect {
+        x: $circle-center;
+        y: 0;
+    }
+
+    &:nth-child(2) rect {
+        x: $circle-center;
+        y: $circle-center;
+    }
+
+    &:nth-child(3) rect {
+        x: 0;
+        y: $circle-center;
+    }
+
+    &:nth-child(4) rect {
+        x: 0;
+        y: 0;
+    }
+
+    rect {
+        width: $circle-center;
+        height: $circle-center;
+    }
+}
+
+
+
 // Progress Bar root
 // ---
 
@@ -29,7 +77,11 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     display: flex;
     align-items: center;
     height: $tap-size;
-    margin: 0 15px;
+    margin: 0 $unit*1.5;
+
+    &.c--radial {
+        height: $circle-base-unit;
+    }
 }
 
 
@@ -41,9 +93,9 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     &:not(:empty) {
         position: relative;
 
-        width: 45px;
-        height: 45px;
-        margin-right: 10px;
+        width: $circle-base-unit;
+        height: $circle-base-unit;
+        margin-right: $unit;
     }
 }
 
@@ -94,7 +146,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 
 .c-progress-bar__middle {
     flex-grow: 1;
-    margin-right: 5px;
+    margin-right: $unit/2;
 }
 
 
@@ -106,7 +158,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     position: relative;
 
     overflow: hidden;
-    height: 5px;
+    height: $unit/2;
 
     background-color: $progress-bar__background-color;
 
@@ -124,7 +176,7 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
     position: absolute;
     transform: translate3d(-100%, 0, 0);
 
-    height: 5px;
+    height: $unit/2;
     width: 100%;
 
     transition: transform 0.5s ease-in;
@@ -174,8 +226,8 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 .c-progress-bar__extra {
     position: relative;
 
-    width: 35px;
-    height: 25px;
+    width: $unit*3.5;
+    height: $unit*2.5;
 
     .c-progress-bar.c--radial & {
         display: none;
@@ -190,8 +242,8 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 // This section contains the current value of the progress bar and the indicator icons
 
 .c-progress-bar__indicator {
-    width: 25px;
-    height: 25px;
+    width: $unit*2.5;
+    height: $unit*2.5;
 
     text-align: center;
 
@@ -227,10 +279,10 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 .c-progress-bar__icon {
     display: none;
 
-    width: 25px;
-    height: 25px;
+    width: $unit*2.5;
+    height: $unit*2.5;
 
-    font-size: 25px;
+    font-size: $unit*2.5;
 
     &.c--check {
         color: $progress-bar__success-color;

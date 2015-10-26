@@ -86,6 +86,7 @@ define([
 
         _setUniqueIds(this.$el);
         _bindEvents(this.$el);
+        _setAnimationStartingPositions(this.$el);
 
         // this object will store timer information that allows the animation to be throttled
         this.$el.data('component-timer', {});
@@ -169,21 +170,23 @@ define([
         var startAnimationIndex = -1;
         var angleToDeplete = angle;
 
+        var radius = parseInt($progressBar.find('svg').css('height'), 10) / 2;
+
         $animations.each(function(index, animation) {
             var $animation = $(animation);
             $animation.attr('begin', 'indefinite');
 
             // We want to animate from the last animation's position for max smoothness
-            var from = $animation.attr('to') || '-90 22.5 22.5';
+            var from = $animation.attr('to') || '-90 ' + radius + ' ' + radius;
             var to;
 
             // Go through each quadrant and give it up to 90 to rotate
             // If there is any angle remaining, move on to the next quadrant
             if (angleToDeplete >= 90) {
-                to = '0 22.5 22.5';
+                to = '0 ' + radius + ' ' + radius;
                 angleToDeplete -= 90;
             } else {
-                to = (angleToDeplete - 90) + ' 22.5 22.5';
+                to = (angleToDeplete - 90) + ' ' + radius + ' ' + radius;
                 angleToDeplete = 0;
             }
 
@@ -304,6 +307,12 @@ define([
             // also, Firefox doesn't like animation ids that start with numbers
             $clippingPath.find('animateTransform').attr('id', 'anim__' + id + '_' + index);
         });
+    };
+
+    // If the unit size is different from the default, we need to update the animation rect's positions
+    var _setAnimationStartingPositions = function($progressBar) {
+        var radius = parseInt($progressBar.find('svg').css('height'), 10);
+        $progressBar.find('.c-progress-bar__clip-quadrant rect').attr('transform', 'rotate(-90, ' + radius + ', ' + radius + ')');
     };
 
     return {
