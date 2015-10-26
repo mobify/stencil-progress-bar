@@ -2,19 +2,17 @@
 
     {?isRadial}
         {@c-progress-bar__radial/}
-    {/isRadial}
 
-    <div class="c-progress-bar__middle">
         <div class="c-progress-bar__label">{label}</div>
-
-        {^isRadial}
+    {:else}
         <div class="c-progress-bar__linear">
+            <div class="c-progress-bar__label">{label}</div>
+
             <div class="c-progress-bar__linear-background">
                 <div class="c-progress-bar__linear-progress"></div>
             </div>
         </div>
-        {/isRadial}
-    </div>
+    {/isRadial}
 
     <div class="c-progress-bar__extra">
         {@c-progress-bar__indicator/}

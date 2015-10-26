@@ -137,13 +137,12 @@ circle {
 
 
 
-// Progress Bar Middle
+// Linear Progress Bar
 // ---
 //
 // Holds the linear progress bar and the label
-// Needed as a separate element so we can flexbox everything nicely
 
-.c-progress-bar__middle {
+.c-progress-bar__linear {
     flex-grow: 1;
     margin-right: $unit/2;
 }
