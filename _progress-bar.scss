@@ -151,9 +151,11 @@ circle {
 
 // Linear Progress Bar Background
 // ---
+//
+// 1. Set position relative so that c-progress-bar__linear-progress is clipped by this element
 
 .c-progress-bar__linear-background {
-    position: relative;
+    position: relative; // 1
 
     overflow: hidden;
     height: $unit/2;
@@ -169,9 +171,11 @@ circle {
 // ---
 //
 // Used to show the current level of progress
+//
+// 1. Position this element within c-progress-bar__linear-background
 
 .c-progress-bar__linear-progress {
-    position: absolute;
+    position: absolute; // 1
     transform: translate3d(-100%, 0, 0);
 
     height: $unit/2;
