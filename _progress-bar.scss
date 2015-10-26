@@ -77,7 +77,6 @@ circle {
     display: flex;
     align-items: center;
     height: $tap-size;
-    margin: 0 $unit*1.5;
 
     &.c--radial {
         height: $circle-base-unit;
