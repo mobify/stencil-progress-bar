@@ -55,6 +55,11 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
         width: $circle-base-unit;
         height: $circle-base-unit;
         margin-right: $unit;
+
+        .c-progress-bar.c--direction-rtl & {
+            margin-right: 0;
+            margin-left: $unit;
+        }
     }
 }
 
