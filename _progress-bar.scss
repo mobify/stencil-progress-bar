@@ -223,16 +223,16 @@ circle {
 // ---
 //
 // This section is displayed beside the horizontal bar and is used to show the progress indicator text or icon
-// 1. When the radial progress bar is shown, we want to hide this section
+//
+// 1. Align to flex-end so that the text/icons will be aligned to the bottom of the progress bar
+//
+// 2. When the radial progress bar is shown, we want to hide this section
 
 .c-progress-bar__extra {
-    position: relative;
-
-    width: $unit*3.5;
-    height: $unit*2.5;
+    align-self: flex-end; // 1
 
     .c-progress-bar.c--radial & {
-        display: none;
+        display: none; // 2
     }
 }
 
@@ -244,10 +244,7 @@ circle {
 // This section contains the current value of the progress bar and the indicator icons
 
 .c-progress-bar__indicator {
-    width: $unit*2.5;
-    height: $unit*2.5;
-
-    text-align: center;
+    margin-bottom: $unit/2;
 
     &.c--text-only {
         .c-progress-bar__icon {
@@ -322,12 +319,6 @@ circle {
         left: 50%;
 
         transform: translate(-50%, -50%);
-    }
-
-    .c-progress-bar__extra & {
-        position: absolute;
-        right: 0;
-        bottom: -3px;
     }
 }
 
