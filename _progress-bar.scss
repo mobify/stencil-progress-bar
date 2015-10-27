@@ -29,46 +29,6 @@ $circle-center: $circle-base-unit/2;
 $circle-stroke: $unit/2; // same stroke as the linear bar
 $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
 
-svg {
-    width: $circle-base-unit;
-    height: $circle-base-unit;
-}
-
-circle {
-    cx: $circle-center;
-    cy: $circle-center;
-    r: $circle-radius;
-    stroke-width: $circle-stroke;
-}
-
-.c-progress-bar__base-quadrant, .c-progress-bar__clip-quadrant {
-    &:nth-child(1) rect {
-        x: $circle-center;
-        y: 0;
-    }
-
-    &:nth-child(2) rect {
-        x: $circle-center;
-        y: $circle-center;
-    }
-
-    &:nth-child(3) rect {
-        x: 0;
-        y: $circle-center;
-    }
-
-    &:nth-child(4) rect {
-        x: 0;
-        y: 0;
-    }
-
-    rect {
-        width: $circle-center;
-        height: $circle-center;
-    }
-}
-
-
 
 // Progress Bar root
 // ---
@@ -130,8 +90,55 @@ circle {
 // Where the magic happens
 
 .c-progress-bar__svg {
+    width: $circle-base-unit;
+    height: $circle-base-unit;
+
     .c-progress-bar.c--direction-rtl & {
         transform: scaleX(-1);
+    }
+}
+
+// Radial Progress Bar Circles
+// ---
+//
+// Used for the background and the progress sections
+
+.c-progress-bar__circle {
+    cx: $circle-center;
+    cy: $circle-center;
+    r: $circle-radius;
+    stroke-width: $circle-stroke;
+}
+
+// Radial Progress Bar Quadrants
+// ---
+//
+// Position the quadrants so they animate from the correct locations
+
+.c-progress-bar__base-quadrant, .c-progress-bar__clip-quadrant {
+    &:nth-child(1) rect {
+        x: $circle-center;
+        y: 0;
+    }
+
+    &:nth-child(2) rect {
+        x: $circle-center;
+        y: $circle-center;
+    }
+
+    &:nth-child(3) rect {
+        x: 0;
+        y: $circle-center;
+    }
+
+    &:nth-child(4) rect {
+        x: 0;
+        y: 0;
+    }
+
+    rect {
+        width: $circle-center;
+        height: $circle-center;
     }
 }
 

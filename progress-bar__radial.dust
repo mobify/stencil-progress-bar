@@ -40,11 +40,11 @@
         </g>
     </defs>
 
-    <circle class="c-progress-bar__radial-background" stroke="grey" stroke-width="5" fill="none" />
-    <circle class="c-progress-bar__radial-progress" stroke="black" stroke-width="5" fill="none" clip-path="url(#q1-clip)"/>
-    <circle class="c-progress-bar__radial-progress" stroke="black" stroke-width="5" fill="none" clip-path="url(#q2-clip)"/>
-    <circle class="c-progress-bar__radial-progress" stroke="black" stroke-width="5" fill="none" clip-path="url(#q3-clip)"/>
-    <circle class="c-progress-bar__radial-progress" stroke="black" stroke-width="5" fill="none" clip-path="url(#q4-clip)"/>
+    <circle class="c-progress-bar__radial-background c-progress-bar__circle" stroke="grey" stroke-width="5" fill="none" />
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q1-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q2-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q3-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q4-clip)"/>
 </svg>
 
     {@c-progress-bar__indicator /}
