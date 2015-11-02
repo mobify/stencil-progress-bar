@@ -9,6 +9,11 @@ $progress-bar__success-color: $success-color !default;
 $progress-bar__error-color: $error-color !default;
 $progress-bar__background-color: $neutral-50 !default;
 
+$progress-bar__circle-base-unit: $unit*4.5 !default;
+$progress-bar__circle-center: $progress-bar__circle-base-unit/2 !default;
+$progress-bar__circle-stroke: $unit/2 !default;
+$progress-bar__circle-radius: ($progress-bar__circle-base-unit - $progress-bar__circle-stroke) / 2 !default;
+
 
 // Dependencies
 // ---
@@ -20,12 +25,6 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 @import 'level/level';
 @import 'font-awesome/scss/font-awesome';
 @import 'stencil-utils/dist/visibility/visibility';
-
-
-$progress-bar__circle-base-unit: $unit*4.5 !default;
-$progress-bar__circle-center: $progress-bar__circle-base-unit/2 !default;
-$progress-bar__circle-stroke: $unit/2 !default;
-$progress-bar__circle-radius: ($progress-bar__circle-base-unit - $progress-bar__circle-stroke) / 2 !default;
 
 
 // Progress Bar root
