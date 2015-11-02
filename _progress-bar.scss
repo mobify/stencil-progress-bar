@@ -22,10 +22,10 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 @import 'stencil-utils/dist/visibility/visibility';
 
 
-$circle-base-unit: $unit*4.5;
-$circle-center: $circle-base-unit/2;
-$circle-stroke: $unit/2; // same stroke as the linear bar
-$circle-radius: ($circle-base-unit - $circle-stroke) / 2;
+$progress-bar__circle-base-unit: $unit*4.5 !default;
+$progress-bar__circle-center: $progress-bar__circle-base-unit/2 !default;
+$progress-bar__circle-stroke: $unit/2 !default;
+$progress-bar__circle-radius: ($progress-bar__circle-base-unit - $progress-bar__circle-stroke) / 2 !default;
 
 
 // Progress Bar root
@@ -37,7 +37,7 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
     height: $tap-size;
 
     &.c--radial {
-        height: $circle-base-unit;
+        height: $progress-bar__circle-base-unit;
     }
 }
 
@@ -50,8 +50,8 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
     &:not(:empty) {
         position: relative;
 
-        width: $circle-base-unit;
-        height: $circle-base-unit;
+        width: $progress-bar__circle-base-unit;
+        height: $progress-bar__circle-base-unit;
         margin-right: $unit;
 
         .c-progress-bar.c--direction-rtl & {
@@ -93,8 +93,8 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
 // Where the magic happens
 
 .c-progress-bar__svg {
-    width: $circle-base-unit;
-    height: $circle-base-unit;
+    width: $progress-bar__circle-base-unit;
+    height: $progress-bar__circle-base-unit;
 
     .c-progress-bar.c--direction-rtl & {
         transform: scaleX(-1);
@@ -107,10 +107,10 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
 // Used for the background and the progress sections
 
 .c-progress-bar__circle {
-    cx: $circle-center;
-    cy: $circle-center;
-    r: $circle-radius;
-    stroke-width: $circle-stroke;
+    cx: $progress-bar__circle-center;
+    cy: $progress-bar__circle-center;
+    r: $progress-bar__circle-radius;
+    stroke-width: $progress-bar__circle-stroke;
 }
 
 // Radial Progress Bar Quadrants
@@ -120,18 +120,18 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
 
 .c-progress-bar__base-quadrant, .c-progress-bar__clip-quadrant {
     &:nth-child(1) rect {
-        x: $circle-center;
+        x: $progress-bar__circle-center;
         y: 0;
     }
 
     &:nth-child(2) rect {
-        x: $circle-center;
-        y: $circle-center;
+        x: $progress-bar__circle-center;
+        y: $progress-bar__circle-center;
     }
 
     &:nth-child(3) rect {
         x: 0;
-        y: $circle-center;
+        y: $progress-bar__circle-center;
     }
 
     &:nth-child(4) rect {
@@ -140,8 +140,8 @@ $circle-radius: ($circle-base-unit - $circle-stroke) / 2;
     }
 
     rect {
-        width: $circle-center;
-        height: $circle-center;
+        width: $progress-bar__circle-center;
+        height: $progress-bar__circle-center;
     }
 }
 
