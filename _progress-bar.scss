@@ -22,8 +22,6 @@ $fa-font-path: '/bower_components/font-awesome/fonts';
 @import 'stencil-utils/dist/visibility/visibility';
 
 
-$unit: 10px;
-
 $circle-base-unit: $unit*4.5;
 $circle-center: $circle-base-unit/2;
 $circle-stroke: $unit/2; // same stroke as the linear bar
