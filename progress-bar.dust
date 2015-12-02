@@ -1,0 +1,22 @@
+<div class="c-progress-bar c--{state} {?isRadial}c--radial{/isRadial} {class}" {?id}id="{.}"{/id} role="progressbar" aria-valuenow="{value}" aria-valuemin="0" aria-valuemax="1" aria-valuetext="{label}" data-adaptivejs-component="stencil-progress-bar">
+
+    {?isRadial}
+        {@c-progress-bar__radial/}
+
+        <div class="c-progress-bar__label">{label}</div>
+    {:else}
+        <div class="c-progress-bar__linear">
+            <div class="c-progress-bar__label">{label}</div>
+
+            <div class="c-progress-bar__linear-background">
+                <div class="c-progress-bar__linear-progress"></div>
+            </div>
+        </div>
+    {/isRadial}
+
+    <div class="c-progress-bar__extra">
+        {@c-progress-bar__indicator/}
+    </div>
+    <span class="c-progress-bar__status u-visually-hidden"></span>
+
+</div>

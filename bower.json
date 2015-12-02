@@ -1,0 +1,40 @@
+{
+  "name": "stencil-progress-bar",
+  "description": "",
+  "authors": [
+    "Mobify"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mobify/stencil-progress-bar.git"
+  },
+  "keywords": [
+    "mobify",
+    "components",
+    "patterns"
+  ],
+  "license": "MIT",
+  "main": [
+    "progress-bar.dust"
+  ],
+  "ignore": [
+    ".editorconfig",
+    ".gitignore",
+    "package.json",
+    "Gruntfile.js",
+    "Gemfile",
+    "Gemfile.lock",
+    "tests"
+  ],
+  "dependencies": {
+    "stencil-variables": "mobify/stencil-variables#*",
+    "stencil-utils": "mobify/stencil-utils#dev",
+    "level": ">=0.1.0",
+    "spline": "~1.0.1",
+    "font-awesome": "~4.3.0",
+    "deckard": "~1.2.0"
+  },
+  "devDependencies": {
+    "stencil-spec": "mobify/stencil-spec#dev"
+  }
+}

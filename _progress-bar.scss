@@ -1,0 +1,334 @@
+// progress-bar
+// ===
+
+
+// Dependencies
+// ---
+
+// Override Font Awesome's default path
+$fa-font-path: '/bower_components/font-awesome/fonts';
+
+@import 'stencil-variables/variables';
+@import 'level/level';
+@import 'font-awesome/scss/font-awesome';
+@import 'stencil-utils/dist/visibility/visibility';
+
+
+// Configurable Variables
+// ---
+
+$progress-bar__progress-color: black !default;
+$progress-bar__success-color: $success-color !default;
+$progress-bar__error-color: $error-color !default;
+$progress-bar__background-color: $neutral-50 !default;
+
+$progress-bar__circle-base-unit: $unit*4.5 !default;
+$progress-bar__circle-center: $progress-bar__circle-base-unit/2 !default;
+$progress-bar__circle-stroke: $unit/2 !default;
+$progress-bar__circle-radius: ($progress-bar__circle-base-unit - $progress-bar__circle-stroke) / 2 !default;
+
+
+// Progress Bar root
+// ---
+
+.c-progress-bar {
+    display: flex;
+    align-items: center;
+    height: $tap-size;
+
+    &.c--radial {
+        height: $progress-bar__circle-base-unit;
+    }
+}
+
+
+
+// Radial Progress Bar
+// ---
+
+.c-progress-bar__radial {
+    &:not(:empty) {
+        position: relative;
+
+        width: $progress-bar__circle-base-unit;
+        height: $progress-bar__circle-base-unit;
+        margin-right: $unit;
+
+        .c-progress-bar.c--direction-rtl & {
+            margin-right: 0;
+            margin-left: $unit;
+        }
+    }
+}
+
+// Radial Progress Bar Background
+// ---
+
+.c-progress-bar__radial-background {
+    stroke: $progress-bar__background-color;
+}
+
+// Radial Progress Bar Progress
+// ---
+//
+// Used to show the current level of progress
+
+.c-progress-bar__radial-progress {
+    .c-progress-bar.c--progress & {
+        stroke: $progress-bar__progress-color;
+    }
+
+    .c-progress-bar.c--success & {
+        stroke: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--error & {
+        stroke: $progress-bar__error-color;
+    }
+}
+
+// Radial Progress Bar SVG
+// ---
+//
+// Where the magic happens
+
+.c-progress-bar__svg {
+    width: $progress-bar__circle-base-unit;
+    height: $progress-bar__circle-base-unit;
+
+    .c-progress-bar.c--direction-rtl & {
+        transform: scaleX(-1);
+    }
+}
+
+// Radial Progress Bar Circles
+// ---
+//
+// Used for the background and the progress sections
+
+.c-progress-bar__circle {
+    cx: $progress-bar__circle-center;
+    cy: $progress-bar__circle-center;
+    r: $progress-bar__circle-radius;
+    stroke-width: $progress-bar__circle-stroke;
+}
+
+// Radial Progress Bar Quadrants
+// ---
+//
+// Position the quadrants so they animate from the correct locations
+
+.c-progress-bar__base-quadrant, .c-progress-bar__clip-quadrant {
+    &:nth-child(1) rect {
+        x: $progress-bar__circle-center;
+        y: 0;
+    }
+
+    &:nth-child(2) rect {
+        x: $progress-bar__circle-center;
+        y: $progress-bar__circle-center;
+    }
+
+    &:nth-child(3) rect {
+        x: 0;
+        y: $progress-bar__circle-center;
+    }
+
+    &:nth-child(4) rect {
+        x: 0;
+        y: 0;
+    }
+
+    rect {
+        width: $progress-bar__circle-center;
+        height: $progress-bar__circle-center;
+    }
+}
+
+
+
+// Linear Progress Bar
+// ---
+//
+// Holds the linear progress bar and the label
+
+.c-progress-bar__linear {
+    flex-grow: 1;
+    margin-right: $unit/2;
+}
+
+
+
+// Linear Progress Bar Background
+// ---
+//
+// 1. Set position relative so that c-progress-bar__linear-progress is clipped by this element
+
+.c-progress-bar__linear-background {
+    position: relative; // 1
+
+    overflow: hidden;
+    height: $unit/2;
+
+    background-color: $progress-bar__background-color;
+
+    .c-progress-bar.c--direction-rtl & {
+        transform: scaleX(-1);
+    }
+}
+
+// Linear Progress Bar Progress
+// ---
+//
+// Used to show the current level of progress
+//
+// 1. Position this element within c-progress-bar__linear-background
+
+.c-progress-bar__linear-progress {
+    position: absolute; // 1
+    transform: translate3d(-100%, 0, 0);
+
+    height: $unit/2;
+    width: 100%;
+
+    transition: transform 0.5s ease-in;
+
+    .c-progress-bar.c--progress & {
+        background-color: $progress-bar__progress-color;
+    }
+
+    .c-progress-bar.c--success & {
+        background-color: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--error & {
+        background-color: $progress-bar__error-color;
+    }
+}
+
+
+
+// Progress Bar Label
+// ---
+//
+// Displays a user defined label which describes the state of progress
+
+.c-progress-bar__label {
+    .c-progress-bar.c--progress & {
+        color: $progress-bar__progress-color;
+    }
+
+    .c-progress-bar.c--success & {
+        color: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--error & {
+        color: $progress-bar__error-color;
+    }
+}
+
+
+
+// Extra section
+// ---
+//
+// This section is displayed beside the horizontal bar and is used to show the progress indicator text or icon
+//
+// 1. Align to flex-end so that the text/icons will be aligned to the bottom of the progress bar
+//
+// 2. When the radial progress bar is shown, we want to hide this section
+
+.c-progress-bar__extra {
+    align-self: flex-end; // 1
+
+    .c-progress-bar.c--radial & {
+        display: none; // 2
+    }
+}
+
+
+
+// Indicator
+// ---
+//
+// This section contains the current value of the progress bar and the indicator icons
+
+.c-progress-bar__indicator {
+    margin-bottom: $unit/2;
+
+    &.c--text-only {
+        .c-progress-bar__icon {
+            display: none;
+        }
+    }
+
+    &.c--icon-only {
+        .c-progress-bar__text {
+            display: none;
+        }
+    }
+
+    .c-progress-bar__radial & {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+}
+
+
+
+// Icon
+// ---
+//
+// These are the icons which appear inside the indicator section
+// 1. The retry icon is a button, so we override the default button styles
+
+.c-progress-bar__icon {
+    display: none;
+
+    width: $unit*2.5;
+    height: $unit*2.5;
+
+    font-size: $unit*2.5;
+
+    &.c--check {
+        color: $progress-bar__success-color;
+    }
+
+    .c-progress-bar.c--success &.c--check {
+        display: inline-block;
+    }
+
+    &.c--retry {
+        padding: 0; // 1
+        border: 0; // 1
+
+        background: 0; // 1
+
+        color: $progress-bar__error-color;
+    }
+
+    .c-progress-bar.c--error &.c--retry {
+        display: inline-block;
+    }
+}
+
+
+
+// Text
+// ---
+//
+// The text that appears inside the progress bar indicator
+
+.c-progress-bar__text {
+    .c-progress-bar__radial & {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+}
+

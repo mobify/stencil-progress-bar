@@ -1,0 +1,51 @@
+<div class="c-progress-bar__radial">
+<svg class="c-progress-bar__svg">
+    <defs>
+        <g>
+            <clippath id="q1" class="c-progress-bar__base-quadrant">
+                <rect />
+            </clippath>
+            <clippath id="q2" class="c-progress-bar__base-quadrant">
+                <rect />
+            </clippath>
+            <clippath id="q3" class="c-progress-bar__base-quadrant">
+                <rect />
+            </clippath>
+            <clippath id="q4" class="c-progress-bar__base-quadrant">
+                <rect />
+            </clippath>
+        </g>
+
+        <g>
+            <clippath id="q1-clip" clip-path="url(#q1)" class="c-progress-bar__clip-quadrant">
+                <rect>
+                    <animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="indefinite" fill="freeze"/>
+                </rect>
+            </clippath>
+            <clippath id="q2-clip" clip-path="url(#q2)" class="c-progress-bar__clip-quadrant">
+                <rect>
+                    <animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim1.end" fill="freeze"/>
+                </rect>
+            </clippath>
+            <clippath id="q3-clip" clip-path="url(#q3)" class="c-progress-bar__clip-quadrant">
+                <rect>
+                    <animateTransform id="anim3" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim2.end" fill="freeze"/>
+                </rect>
+            </clippath>
+            <clippath id="q4-clip" clip-path="url(#q4)" class="c-progress-bar__clip-quadrant">
+                <rect>
+                    <animateTransform id="anim4" attributeName="transform" attributeType="XML" type="rotate" dur="0.125s" begin="anim3.end" fill="freeze"/>
+                </rect>
+            </clippath>
+        </g>
+    </defs>
+
+    <circle class="c-progress-bar__radial-background c-progress-bar__circle" stroke="grey" stroke-width="5" fill="none" />
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q1-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q2-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q3-clip)"/>
+    <circle class="c-progress-bar__radial-progress c-progress-bar__circle" stroke="black" stroke-width="5" fill="none" clip-path="url(#q4-clip)"/>
+</svg>
+
+    {@c-progress-bar__indicator /}
+</div>
