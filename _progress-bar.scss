@@ -1,6 +1,19 @@
 // progress-bar
 // ===
 
+
+// Dependencies
+// ---
+
+// Override Font Awesome's default path
+$fa-font-path: '/bower_components/font-awesome/fonts';
+
+@import 'stencil-variables/variables';
+@import 'level/level';
+@import 'font-awesome/scss/font-awesome';
+@import 'stencil-utils/dist/visibility/visibility';
+
+
 // Configurable Variables
 // ---
 
@@ -13,18 +26,6 @@ $progress-bar__circle-base-unit: $unit*4.5 !default;
 $progress-bar__circle-center: $progress-bar__circle-base-unit/2 !default;
 $progress-bar__circle-stroke: $unit/2 !default;
 $progress-bar__circle-radius: ($progress-bar__circle-base-unit - $progress-bar__circle-stroke) / 2 !default;
-
-
-// Dependencies
-// ---
-
-// Override Font Awesome's default path
-$fa-font-path: '/bower_components/font-awesome/fonts';
-
-@import 'stencil-variables/variables';
-@import 'level/level';
-@import 'font-awesome/scss/font-awesome';
-@import 'stencil-utils/dist/visibility/visibility';
 
 
 // Progress Bar root
